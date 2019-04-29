@@ -30,6 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(StartWindow));
             this.AdminTab = new System.Windows.Forms.TabPage();
+            this.AddPlaceAdmin = new System.Windows.Forms.Button();
             this.LogoutAdmin = new System.Windows.Forms.PictureBox();
             this.RatingAdmin = new System.Windows.Forms.Button();
             this.ListOfUsers = new System.Windows.Forms.Button();
@@ -100,7 +101,6 @@
             this.label1 = new System.Windows.Forms.Label();
             this.Enter = new System.Windows.Forms.Button();
             this.ProgramTab = new System.Windows.Forms.TabControl();
-            this.AddPlaceAdmin = new System.Windows.Forms.Button();
             this.AdminTab.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.LogoutAdmin)).BeginInit();
             this.SpokesmanTab.SuspendLayout();
@@ -130,6 +130,17 @@
             this.AdminTab.TabIndex = 6;
             this.AdminTab.Text = "AdminTab";
             this.AdminTab.UseVisualStyleBackColor = true;
+            // 
+            // AddPlaceAdmin
+            // 
+            this.AddPlaceAdmin.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.AddPlaceAdmin.Location = new System.Drawing.Point(52, 144);
+            this.AddPlaceAdmin.Name = "AddPlaceAdmin";
+            this.AddPlaceAdmin.Size = new System.Drawing.Size(336, 40);
+            this.AddPlaceAdmin.TabIndex = 42;
+            this.AddPlaceAdmin.Text = "Добавить место";
+            this.AddPlaceAdmin.UseVisualStyleBackColor = true;
+            this.AddPlaceAdmin.Click += new System.EventHandler(this.AddPlaceAdmin_Click);
             // 
             // LogoutAdmin
             // 
@@ -910,22 +921,11 @@
             this.ProgramTab.Controls.Add(this.Rating);
             this.ProgramTab.Controls.Add(this.SpokesmanTab);
             this.ProgramTab.Controls.Add(this.AdminTab);
-            this.ProgramTab.Location = new System.Drawing.Point(-4, -21);
+            this.ProgramTab.Location = new System.Drawing.Point(-4, -22);
             this.ProgramTab.Name = "ProgramTab";
             this.ProgramTab.SelectedIndex = 0;
             this.ProgramTab.Size = new System.Drawing.Size(810, 397);
             this.ProgramTab.TabIndex = 0;
-            // 
-            // AddPlaceAdmin
-            // 
-            this.AddPlaceAdmin.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.AddPlaceAdmin.Location = new System.Drawing.Point(52, 144);
-            this.AddPlaceAdmin.Name = "AddPlaceAdmin";
-            this.AddPlaceAdmin.Size = new System.Drawing.Size(336, 40);
-            this.AddPlaceAdmin.TabIndex = 42;
-            this.AddPlaceAdmin.Text = "Добавить место";
-            this.AddPlaceAdmin.UseVisualStyleBackColor = true;
-            this.AddPlaceAdmin.Click += new System.EventHandler(this.AddPlaceAdmin_Click);
             // 
             // StartWindow
             // 

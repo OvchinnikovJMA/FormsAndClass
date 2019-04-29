@@ -196,7 +196,6 @@ namespace интерфейсы
             index += 2;
             ProgramTab.SelectedIndex = index;
             index = 0;
-            ListOfPlacesUser.Items.Clear();
         }
         public void GetRatingMenu()
         {

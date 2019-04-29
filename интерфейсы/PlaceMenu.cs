@@ -15,7 +15,7 @@ namespace интерфейсы
     public partial class PlaceMenu : Form
     {
         public int number;
-        public bool flag = false, flag2 = false;
+        public bool flag = false, flag2 = false, flag3 = false;
         public PlaceMenu()
         {
             InitializeComponent();
@@ -86,30 +86,11 @@ namespace интерфейсы
 
         private void LikePicture1Info_Click(object sender, EventArgs e)
         {
-            if(!flag)
-            {
-                var lol = int.Parse(InfoLikeNumber.Text) + 1;
-                InfoLikeNumber.Text = lol.ToString();
-                flag = true;
-            }
+            
         }
-        //
         private void DisLikePicture1Info_Click(object sender, EventArgs e)
         {
-            if(flag)
-            {
-                var lol = int.Parse(InfoLikeNumber.Text) - 1;
-                InfoLikeNumber.Text = lol.ToString();
-                lol = int.Parse(InfoDisLikeNumber.Text) + 1;
-                InfoDisLikeNumber.Text = lol.ToString();
-                flag = false;
-            }
-            if(!flag)
-            {
-                var lol = int.Parse(InfoDisLikeNumber.Text) + 1;
-                InfoDisLikeNumber.Text = lol.ToString();
-                flag = true;
-            }
+            
         }
     }
 }
