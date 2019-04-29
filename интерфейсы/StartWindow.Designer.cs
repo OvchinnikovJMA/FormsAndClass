@@ -910,7 +910,7 @@
             this.ProgramTab.Controls.Add(this.Rating);
             this.ProgramTab.Controls.Add(this.SpokesmanTab);
             this.ProgramTab.Controls.Add(this.AdminTab);
-            this.ProgramTab.Location = new System.Drawing.Point(-4, -4);
+            this.ProgramTab.Location = new System.Drawing.Point(-4, -21);
             this.ProgramTab.Name = "ProgramTab";
             this.ProgramTab.SelectedIndex = 0;
             this.ProgramTab.Size = new System.Drawing.Size(810, 397);

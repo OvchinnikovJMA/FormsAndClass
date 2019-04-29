@@ -133,6 +133,7 @@
             this.DisLikePicture1Info.Size = new System.Drawing.Size(25, 25);
             this.DisLikePicture1Info.TabIndex = 5;
             this.DisLikePicture1Info.TabStop = false;
+            this.DisLikePicture1Info.Click += new System.EventHandler(this.DisLikePicture1Info_Click);
             // 
             // LikePicture1Info
             // 
@@ -141,6 +142,7 @@
             this.LikePicture1Info.Size = new System.Drawing.Size(25, 25);
             this.LikePicture1Info.TabIndex = 6;
             this.LikePicture1Info.TabStop = false;
+            this.LikePicture1Info.Click += new System.EventHandler(this.LikePicture1Info_Click);
             // 
             // InfoDisLikeNumber
             // 

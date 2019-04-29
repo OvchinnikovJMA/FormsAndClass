@@ -209,7 +209,6 @@ namespace интерфейсы
         {
             LOG.DoLog(RatingUser.Name);
             GetRatingMenu();
-
         }
 
         private void Menu_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -308,9 +307,7 @@ namespace интерфейсы
         private void RatingSpokesman_Click(object sender, EventArgs e)
         {
             LOG.DoLog(RatingSpokesman.Name);
-            index += 3;
-            ProgramTab.SelectedIndex = index;
-            index = 0;
+            GetRatingMenu();
         }
 
         private void InfSpokesman_Click(object sender, EventArgs e)
@@ -322,9 +319,7 @@ namespace интерфейсы
 
         private void RatingAdmin_Click(object sender, EventArgs e)
         {
-            index += 3;
-            ProgramTab.SelectedIndex = index;
-            index = 0;
+            GetRatingMenu();
         }
 
         private void ListOfPlacesUser_MouseDoubleClick(object sender, MouseEventArgs e)
@@ -384,8 +379,16 @@ namespace интерфейсы
             if (index != ListBox.NoMatches)
             {
                 var item = (Place)listbox.Items[index];
-                var pm = new PlaceMenu() { Place = item };
-                pm.Show();
+                if(ActiveUser.Text != "Войдите в систему")
+                {
+                    var pm = new PlaceMenu(user) { Place = item };
+                    pm.Show();
+                }
+                else
+                {
+                    var pm = new PlaceMenu() { Place = item };
+                    pm.Show();
+                }
             }
         }
         private void BestPlaceLastWeek_MouseDoubleClick(object sender, MouseEventArgs e)
