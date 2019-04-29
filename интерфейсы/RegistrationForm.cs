@@ -16,7 +16,7 @@ namespace интерфейсы
     public partial class RegistrationForm : Form
     {
         public static string connectString = "Provider=Microsoft.ACE.OLEDB.12.0;Data source=UsersData.accdb";
-        
+        public User user = new User();
         public RegistrationForm()
         {
             InitializeComponent();
@@ -72,23 +72,25 @@ namespace интерфейсы
 
         private void RegestrationButton_Click(object sender, EventArgs e)
         {
-            string sex;
-            string typeOfUser;
+            user.TypeOfUser = new TypeOfUser();
+            user.GenderType = new GenderType();
+            user.Login = RegistrationLogin.Text.ToString();
+            user.Password = RegistrationPassword.Text.ToString();
             if (WomanGender.Checked)
-                sex = "Женщина";
+                user.GenderType.CurrentTypeOfGender = "Женщина";
             else if (ManGender.Checked)
-                sex = "Мужчина";
-            else sex = "Другой";
+                user.GenderType.CurrentTypeOfGender = "Мужчина";
+            else user.GenderType.CurrentTypeOfGender = "Другой";
             if (User.Checked)
-                typeOfUser = "Пользователь";
+                user.TypeOfUser.CurrentTypeOfUser = "Пользователь";
             else if (SpokesmanOfPlace.Checked)
-                typeOfUser = "Представитель";
-            else typeOfUser = "Админиcтратор";           
+                user.TypeOfUser.CurrentTypeOfUser = "Представитель";
+            else user.TypeOfUser.CurrentTypeOfUser = "Админиcтратор";
             OleDbConnection connection = new OleDbConnection(connectString);
             OleDbCommand commandInsert = new OleDbCommand();
             commandInsert.CommandType = CommandType.Text;
-            commandInsert.Connection = connection;            
-            commandInsert.CommandText = "INSERT into UsersData (Login, EnterCode, Sex, TypeOfUser) VALUES ('" + RegistrationLogin.Text.ToString() + "', '" + RegistrationPassword.Text.ToString() + "', '" + sex.ToString() + "', '" + typeOfUser.ToString() + "')";
+            commandInsert.Connection = connection;
+            commandInsert.CommandText = "INSERT into UsersData (Login, EnterCode, Sex, TypeOfUser) VALUES ('" + user.Login + "', '" + user.Password + "', '" + user.GenderType.CurrentTypeOfGender.ToString() + "', '" + user.TypeOfUser.CurrentTypeOfUser.ToString() + "')";
             connection.Open();
             commandInsert.ExecuteNonQuery();
             connection.Close();

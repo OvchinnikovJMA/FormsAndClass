@@ -28,13 +28,14 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(NewPlace));
             this.NameOfSpokesman = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.DiscriptionNewPlaceSpokesman = new System.Windows.Forms.Label();
             this.ContactsNewPlaceSpokesman = new System.Windows.Forms.Label();
             this.PotoNewPlaceSpokesman = new System.Windows.Forms.Button();
             this.NameOfPlaceSPM = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.EnterDiscription = new System.Windows.Forms.TextBox();
             this.AddressNewPlaceSpokesman = new System.Windows.Forms.Button();
             this.CityNewPlaceSpokesman = new System.Windows.Forms.Label();
             this.EnterCityNewPlaceSpokesman = new System.Windows.Forms.TextBox();
@@ -115,12 +116,12 @@
             this.NameOfPlaceSPM.Size = new System.Drawing.Size(150, 31);
             this.NameOfPlaceSPM.TabIndex = 6;
             // 
-            // textBox2
+            // EnterDiscription
             // 
-            this.textBox2.Location = new System.Drawing.Point(143, 235);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(555, 20);
-            this.textBox2.TabIndex = 7;
+            this.EnterDiscription.Location = new System.Drawing.Point(143, 235);
+            this.EnterDiscription.Name = "EnterDiscription";
+            this.EnterDiscription.Size = new System.Drawing.Size(555, 20);
+            this.EnterDiscription.TabIndex = 7;
             // 
             // AddressNewPlaceSpokesman
             // 
@@ -349,15 +350,16 @@
             this.Controls.Add(this.EnterCityNewPlaceSpokesman);
             this.Controls.Add(this.CityNewPlaceSpokesman);
             this.Controls.Add(this.AddressNewPlaceSpokesman);
-            this.Controls.Add(this.textBox2);
+            this.Controls.Add(this.EnterDiscription);
             this.Controls.Add(this.NameOfPlaceSPM);
             this.Controls.Add(this.PotoNewPlaceSpokesman);
             this.Controls.Add(this.ContactsNewPlaceSpokesman);
             this.Controls.Add(this.DiscriptionNewPlaceSpokesman);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.NameOfSpokesman);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "NewPlace";
-            this.Text = "NewPlace";
+            this.Text = "2ГИС Путеводитель";
             this.Load += new System.EventHandler(this.NewPlace_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -371,28 +373,28 @@
         private System.Windows.Forms.Label DiscriptionNewPlaceSpokesman;
         private System.Windows.Forms.Label ContactsNewPlaceSpokesman;
         private System.Windows.Forms.Button PotoNewPlaceSpokesman;
-        private System.Windows.Forms.TextBox NameOfPlaceSPM;
-        private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.Button AddressNewPlaceSpokesman;
         private System.Windows.Forms.Label CityNewPlaceSpokesman;
-        private System.Windows.Forms.TextBox EnterCityNewPlaceSpokesman;
-        private System.Windows.Forms.TextBox EnterRegionNewPlaceSpokesman;
         private System.Windows.Forms.Button StreetNewPlaceSpokesman;
         private System.Windows.Forms.Label RegionNewPlaceSpokesman;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox EnterNumberStreetSPM;
-        private System.Windows.Forms.TextBox EnterNameStreet;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.TextBox EnterTelephones;
-        private System.Windows.Forms.TextBox EnterContacts;
         private System.Windows.Forms.LinkLabel downloadnumber;
         private System.Windows.Forms.LinkLabel downloadcontact;
         private System.Windows.Forms.Button NewPlaceComplete;
-        private System.Windows.Forms.DateTimePicker DateRegisterPicker;
         private System.Windows.Forms.Label DateForAdmin;
-        private System.Windows.Forms.TextBox EnterNameOfSpokesman;
         private System.Windows.Forms.Label label6;
+        public System.Windows.Forms.TextBox NameOfPlaceSPM;
+        protected System.Windows.Forms.TextBox EnterDiscription;
+        public System.Windows.Forms.TextBox EnterCityNewPlaceSpokesman;
+        public System.Windows.Forms.TextBox EnterRegionNewPlaceSpokesman;
+        public System.Windows.Forms.TextBox EnterNumberStreetSPM;
+        public System.Windows.Forms.TextBox EnterNameStreet;
+        public System.Windows.Forms.TextBox EnterTelephones;
+        public System.Windows.Forms.TextBox EnterContacts;
+        public System.Windows.Forms.DateTimePicker DateRegisterPicker;
+        public System.Windows.Forms.TextBox EnterNameOfSpokesman;
     }
 }

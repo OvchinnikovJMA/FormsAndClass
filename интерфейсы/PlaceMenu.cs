@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,29 +14,39 @@ namespace интерфейсы
 {
     public partial class PlaceMenu : Form
     {
+        public int number;
         public PlaceMenu()
         {
             InitializeComponent();
         }
         public Place Place {get; set;}
+        public Information Information = new Information();
+        public Address Address = new Address();
+        public readonly Label addressText = new Label();
         private void Form4_Load(object sender, EventArgs e)
         {
-            PhotoPlace.Image = Image.FromFile(@"C:\Users\teesh\Desktop\Копия флешки\STORE N GO\Иконки\Харитоновский парк.jpg");
+            var Rating = new Rating();
+            var ms = new MemoryStream(Place.MainPhoto);
+            PhotoPlace.Image = Image.FromStream(ms);
             PhotoPlace.SizeMode = PictureBoxSizeMode.StretchImage;
+            NameOfPlace.Text = Place.Name;
+            InfoLikeNumber.Text = Place.Rating.Likes.ToString();
+            InfoDisLikeNumber.Text = Place.Rating.Dislikes.ToString();
+            InformationPlaceInfo.Text = Place.Information.Discription;
             LikePicture1Info.Image = Image.FromFile(@"C:\Users\teesh\Desktop\Копия флешки\STORE N GO\Иконки\img_165452.png");
             LikePicture1Info.SizeMode = PictureBoxSizeMode.StretchImage;
             DisLikePicture1Info.Image = Image.FromFile(@"C:\Users\teesh\Desktop\Копия флешки\STORE N GO\Иконки\Dislike.png");
             DisLikePicture1Info.SizeMode = PictureBoxSizeMode.StretchImage;
-            CommLikePicture1.Image = Image.FromFile(@"C:\Users\teesh\Desktop\Копия флешки\STORE N GO\Иконки\img_165452.png");
-            CommLikePicture1.SizeMode = PictureBoxSizeMode.StretchImage;
-            CommDisLikePicture1.Image = Image.FromFile(@"C:\Users\teesh\Desktop\Копия флешки\STORE N GO\Иконки\Dislike.png");
-            CommDisLikePicture1.SizeMode = PictureBoxSizeMode.StretchImage;
-            pictureBox2.Image = Image.FromFile(@"C:\Users\teesh\Desktop\Копия флешки\STORE N GO\Иконки\img_165452.png");
-            pictureBox2.SizeMode = PictureBoxSizeMode.StretchImage;
-            pictureBox3.Image = Image.FromFile(@"C:\Users\teesh\Desktop\Копия флешки\STORE N GO\Иконки\Dislike.png");
-            pictureBox3.SizeMode = PictureBoxSizeMode.StretchImage;
+            GetAddress();
         }
-
+        public void GetAddress()
+        {
+            Address.Street = new Street();
+            splitContainer1.Panel2.Controls.Add(addressText);
+            addressText.Location = new Point(15, InformationPlaceInfo.Location.Y + InformationPlaceInfo.Height + 10);
+            addressText.Width = 448;
+            addressText.Text = $"г.{Place.Information.Address.City}, Улица: {Place.Information.Address.Street.Name}, Номер: {Place.Information.Address.Street.Number}";
+        }
         private void splitContainer1_Panel2_Paint(object sender, PaintEventArgs e)
         {
 

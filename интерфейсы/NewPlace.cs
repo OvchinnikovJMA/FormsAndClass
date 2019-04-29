@@ -10,13 +10,18 @@ using System.Xml.Serialization;
 namespace интерфейсы
 {
     public partial class NewPlace : Form
-    {
-        
+    {     
         public NewPlace()
         {
             InitializeComponent();
+            var AllPlaces = new Places();
         }
-
+        public Places AllPlaces { get; set; }
+        public NewPlace(Places allPlaces)
+        {
+            InitializeComponent();
+            AllPlaces = allPlaces;
+        }
         private void NewPlace_Load(object sender, EventArgs e)
         {
             RegionNewPlaceSpokesman.Visible = false;
@@ -31,21 +36,30 @@ namespace интерфейсы
         }
 
         Place Place = new Place();
-        Places Places = new Places();
         public void GetNewPlaceReg()
-        { 
+        {
+            if (AllPlaces == null)
+            {
+                AllPlaces = new Places();
+                AllPlaces.ListOfPlaces = new List<Place>();
+            }   
+            Place.Information = new Information();
+            Place.Information.Address = new Address();
+            Place.Information.Address.Street = new Street();
+            Place.Rating = new Rating();
             Place.Name = NameOfPlaceSPM.Text;
             Place.Information.Address.City = EnterCityNewPlaceSpokesman.Text;
             Place.Information.Address.Region = EnterRegionNewPlaceSpokesman.Text;
             Place.Information.Address.Street.Name = EnterNameStreet.Text;
             Place.Information.Address.Street.Number = int.Parse(EnterNumberStreetSPM.Text);
-            Place.Information.Discription = DiscriptionNewPlaceSpokesman.Text;
+            Place.Information.Discription = EnterDiscription.Text;
             Place.Information.SpokesmanName = EnterNameOfSpokesman.Text;
             Place.RegistrationDate = DateRegisterPicker.Value;
-
-            Places.ListOfPlaces.Add(Place);
+            var rand = new Random();
+            Place.Rating.Likes = rand.Next(1, 20);
+            Place.Rating.Dislikes = rand.Next(1, 5);
+            AllPlaces.ListOfPlaces.Add(Place);
         }
-        
         private void downloadnumber_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             Contacts contacts = new Contacts();
@@ -113,14 +127,13 @@ namespace интерфейсы
 
         private void NewPlaceComplete_Click(object sender, EventArgs e)
         {
-            var sfd = new SaveFileDialog() { Filter = "Список Мест|*.places" };
-
-            if (sfd.ShowDialog(this) != DialogResult.OK)
-                return;
+            GetNewPlaceReg();
             var xs = new XmlSerializer(typeof(Places));
-            var file = File.Create(sfd.FileName);
-            xs.Serialize(file, Places);
+            var file = File.Create("Список мест.places");
+            xs.Serialize(file, AllPlaces);
             file.Close();
+            Close();
+
         }
     }
 }

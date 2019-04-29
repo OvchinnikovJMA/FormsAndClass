@@ -74,6 +74,12 @@
     <Compile Include="NewPlace.Designer.cs">
       <DependentUpon>NewPlace.cs</DependentUpon>
     </Compile>
+    <Compile Include="NewRoughts.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NewRoughts.Designer.cs">
+      <DependentUpon>NewRoughts.cs</DependentUpon>
+    </Compile>
     <Compile Include="StartWindow.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -111,6 +117,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="NewPlace.resx">
       <DependentUpon>NewPlace.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NewRoughts.resx">
+      <DependentUpon>NewRoughts.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="StartWindow.resx">
       <DependentUpon>StartWindow.cs</DependentUpon>
