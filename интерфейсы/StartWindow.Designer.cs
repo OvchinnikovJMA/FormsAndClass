@@ -72,6 +72,8 @@
             this.MyRouteUser = new System.Windows.Forms.Button();
             this.MyPlaces = new System.Windows.Forms.Button();
             this.MainPanelUser = new System.Windows.Forms.Panel();
+            this.VisitedPlacesUser = new System.Windows.Forms.ListBox();
+            this.RecomPlacesUser = new System.Windows.Forms.ListBox();
             this.Search = new System.Windows.Forms.Button();
             this.RecomendedPlacesUser = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -84,9 +86,11 @@
             this.FirstFilterUser = new System.Windows.Forms.Label();
             this.Filter2 = new System.Windows.Forms.Label();
             this.vScrollBar1 = new System.Windows.Forms.VScrollBar();
+            this.NameOfEarlyPlaceUser = new System.Windows.Forms.Label();
             this.SearchMenuOfUser = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.StartWindowTab = new System.Windows.Forms.TabPage();
+            this.BestPlaceLastWeek = new System.Windows.Forms.ListBox();
             this.PasswordStartMenu = new System.Windows.Forms.TextBox();
             this.LoginStartMenu = new System.Windows.Forms.TextBox();
             this.DoRegistration = new System.Windows.Forms.LinkLabel();
@@ -96,10 +100,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.Enter = new System.Windows.Forms.Button();
             this.ProgramTab = new System.Windows.Forms.TabControl();
-            this.BestPlaceLastWeek = new System.Windows.Forms.ListBox();
-            this.NameOfEarlyPlaceUser = new System.Windows.Forms.Label();
-            this.RecomPlacesUser = new System.Windows.Forms.ListBox();
-            this.VisitedPlacesUser = new System.Windows.Forms.ListBox();
+            this.AddPlaceAdmin = new System.Windows.Forms.Button();
             this.AdminTab.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.LogoutAdmin)).BeginInit();
             this.SpokesmanTab.SuspendLayout();
@@ -117,6 +118,7 @@
             // 
             // AdminTab
             // 
+            this.AdminTab.Controls.Add(this.AddPlaceAdmin);
             this.AdminTab.Controls.Add(this.LogoutAdmin);
             this.AdminTab.Controls.Add(this.RatingAdmin);
             this.AdminTab.Controls.Add(this.ListOfUsers);
@@ -141,9 +143,9 @@
             // RatingAdmin
             // 
             this.RatingAdmin.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.RatingAdmin.Location = new System.Drawing.Point(51, 147);
+            this.RatingAdmin.Location = new System.Drawing.Point(51, 217);
             this.RatingAdmin.Name = "RatingAdmin";
-            this.RatingAdmin.Size = new System.Drawing.Size(135, 40);
+            this.RatingAdmin.Size = new System.Drawing.Size(337, 40);
             this.RatingAdmin.TabIndex = 39;
             this.RatingAdmin.Text = "Рейтинг";
             this.RatingAdmin.UseVisualStyleBackColor = true;
@@ -173,6 +175,7 @@
             this.LoginAdmin.TabIndex = 37;
             this.LoginAdmin.TabStop = true;
             this.LoginAdmin.Text = "User";
+            this.LoginAdmin.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.LoginAdmin_LinkClicked);
             // 
             // SpokesmanTab
             // 
@@ -347,6 +350,7 @@
             this.LogoutSpokesman.Size = new System.Drawing.Size(25, 25);
             this.LogoutSpokesman.TabIndex = 37;
             this.LogoutSpokesman.TabStop = false;
+            this.LogoutSpokesman.Click += new System.EventHandler(this.LogoutSpokesman_Click);
             // 
             // LoginSpokesMan
             // 
@@ -403,6 +407,7 @@
             this.PlaceOfSpokesman.TabIndex = 28;
             this.PlaceOfSpokesman.Text = "Мои места";
             this.PlaceOfSpokesman.UseVisualStyleBackColor = true;
+            this.PlaceOfSpokesman.Click += new System.EventHandler(this.PlaceOfSpokesman_Click);
             // 
             // Rating
             // 
@@ -428,6 +433,7 @@
             this.PlacesForRating.Name = "PlacesForRating";
             this.PlacesForRating.Size = new System.Drawing.Size(796, 304);
             this.PlacesForRating.TabIndex = 6;
+            this.PlacesForRating.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.PlacesForRating_MouseDoubleClick);
             // 
             // FromPlacesToMain3
             // 
@@ -590,7 +596,7 @@
             // MyPlaces
             // 
             this.MyPlaces.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.MyPlaces.Location = new System.Drawing.Point(12, 75);
+            this.MyPlaces.Location = new System.Drawing.Point(12, 85);
             this.MyPlaces.Name = "MyPlaces";
             this.MyPlaces.Size = new System.Drawing.Size(130, 45);
             this.MyPlaces.TabIndex = 27;
@@ -613,6 +619,30 @@
             this.MainPanelUser.Name = "MainPanelUser";
             this.MainPanelUser.Size = new System.Drawing.Size(654, 371);
             this.MainPanelUser.TabIndex = 26;
+            // 
+            // VisitedPlacesUser
+            // 
+            this.VisitedPlacesUser.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.VisitedPlacesUser.FormattingEnabled = true;
+            this.VisitedPlacesUser.ItemHeight = 20;
+            this.VisitedPlacesUser.Location = new System.Drawing.Point(340, 108);
+            this.VisitedPlacesUser.Name = "VisitedPlacesUser";
+            this.VisitedPlacesUser.ScrollAlwaysVisible = true;
+            this.VisitedPlacesUser.Size = new System.Drawing.Size(286, 224);
+            this.VisitedPlacesUser.TabIndex = 26;
+            this.VisitedPlacesUser.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.VisitedPlacesUser_MouseDoubleClick);
+            // 
+            // RecomPlacesUser
+            // 
+            this.RecomPlacesUser.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.RecomPlacesUser.FormattingEnabled = true;
+            this.RecomPlacesUser.ItemHeight = 20;
+            this.RecomPlacesUser.Location = new System.Drawing.Point(19, 108);
+            this.RecomPlacesUser.Name = "RecomPlacesUser";
+            this.RecomPlacesUser.ScrollAlwaysVisible = true;
+            this.RecomPlacesUser.Size = new System.Drawing.Size(300, 224);
+            this.RecomPlacesUser.TabIndex = 25;
+            this.RecomPlacesUser.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.RecomPlacesUser_MouseDoubleClick);
             // 
             // Search
             // 
@@ -736,6 +766,16 @@
             this.vScrollBar1.Size = new System.Drawing.Size(20, 371);
             this.vScrollBar1.TabIndex = 0;
             // 
+            // NameOfEarlyPlaceUser
+            // 
+            this.NameOfEarlyPlaceUser.AutoSize = true;
+            this.NameOfEarlyPlaceUser.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.NameOfEarlyPlaceUser.Location = new System.Drawing.Point(37, 75);
+            this.NameOfEarlyPlaceUser.Name = "NameOfEarlyPlaceUser";
+            this.NameOfEarlyPlaceUser.Size = new System.Drawing.Size(264, 25);
+            this.NameOfEarlyPlaceUser.TabIndex = 21;
+            this.NameOfEarlyPlaceUser.Text = "Рекомендованные места";
+            // 
             // SearchMenuOfUser
             // 
             this.SearchMenuOfUser.AutoSize = true;
@@ -773,6 +813,18 @@
             this.StartWindowTab.Text = "StartWindowTab";
             this.StartWindowTab.UseVisualStyleBackColor = true;
             // 
+            // BestPlaceLastWeek
+            // 
+            this.BestPlaceLastWeek.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.BestPlaceLastWeek.FormattingEnabled = true;
+            this.BestPlaceLastWeek.ItemHeight = 24;
+            this.BestPlaceLastWeek.Location = new System.Drawing.Point(12, 66);
+            this.BestPlaceLastWeek.Name = "BestPlaceLastWeek";
+            this.BestPlaceLastWeek.ScrollAlwaysVisible = true;
+            this.BestPlaceLastWeek.Size = new System.Drawing.Size(472, 292);
+            this.BestPlaceLastWeek.TabIndex = 23;
+            this.BestPlaceLastWeek.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.BestPlaceLastWeek_MouseDoubleClick);
+            // 
             // PasswordStartMenu
             // 
             this.PasswordStartMenu.Location = new System.Drawing.Point(565, 107);
@@ -802,7 +854,7 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label5.Location = new System.Drawing.Point(85, 15);
+            this.label5.Location = new System.Drawing.Point(109, 15);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(293, 31);
             this.label5.TabIndex = 21;
@@ -864,48 +916,16 @@
             this.ProgramTab.Size = new System.Drawing.Size(810, 397);
             this.ProgramTab.TabIndex = 0;
             // 
-            // BestPlaceLastWeek
+            // AddPlaceAdmin
             // 
-            this.BestPlaceLastWeek.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.BestPlaceLastWeek.FormattingEnabled = true;
-            this.BestPlaceLastWeek.ItemHeight = 24;
-            this.BestPlaceLastWeek.Location = new System.Drawing.Point(12, 66);
-            this.BestPlaceLastWeek.Name = "BestPlaceLastWeek";
-            this.BestPlaceLastWeek.ScrollAlwaysVisible = true;
-            this.BestPlaceLastWeek.Size = new System.Drawing.Size(422, 292);
-            this.BestPlaceLastWeek.TabIndex = 23;
-            // 
-            // NameOfEarlyPlaceUser
-            // 
-            this.NameOfEarlyPlaceUser.AutoSize = true;
-            this.NameOfEarlyPlaceUser.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.NameOfEarlyPlaceUser.Location = new System.Drawing.Point(37, 75);
-            this.NameOfEarlyPlaceUser.Name = "NameOfEarlyPlaceUser";
-            this.NameOfEarlyPlaceUser.Size = new System.Drawing.Size(264, 25);
-            this.NameOfEarlyPlaceUser.TabIndex = 21;
-            this.NameOfEarlyPlaceUser.Text = "Рекомендованные места";
-            // 
-            // RecomPlacesUser
-            // 
-            this.RecomPlacesUser.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.RecomPlacesUser.FormattingEnabled = true;
-            this.RecomPlacesUser.ItemHeight = 20;
-            this.RecomPlacesUser.Location = new System.Drawing.Point(19, 108);
-            this.RecomPlacesUser.Name = "RecomPlacesUser";
-            this.RecomPlacesUser.ScrollAlwaysVisible = true;
-            this.RecomPlacesUser.Size = new System.Drawing.Size(300, 224);
-            this.RecomPlacesUser.TabIndex = 25;
-            // 
-            // VisitedPlacesUser
-            // 
-            this.VisitedPlacesUser.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.VisitedPlacesUser.FormattingEnabled = true;
-            this.VisitedPlacesUser.ItemHeight = 20;
-            this.VisitedPlacesUser.Location = new System.Drawing.Point(340, 108);
-            this.VisitedPlacesUser.Name = "VisitedPlacesUser";
-            this.VisitedPlacesUser.ScrollAlwaysVisible = true;
-            this.VisitedPlacesUser.Size = new System.Drawing.Size(286, 224);
-            this.VisitedPlacesUser.TabIndex = 26;
+            this.AddPlaceAdmin.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.AddPlaceAdmin.Location = new System.Drawing.Point(52, 144);
+            this.AddPlaceAdmin.Name = "AddPlaceAdmin";
+            this.AddPlaceAdmin.Size = new System.Drawing.Size(336, 40);
+            this.AddPlaceAdmin.TabIndex = 42;
+            this.AddPlaceAdmin.Text = "Добавить место";
+            this.AddPlaceAdmin.UseVisualStyleBackColor = true;
+            this.AddPlaceAdmin.Click += new System.EventHandler(this.AddPlaceAdmin_Click);
             // 
             // StartWindow
             // 
@@ -1015,6 +1035,7 @@
         private System.Windows.Forms.ListBox VisitedPlacesUser;
         private System.Windows.Forms.ListBox RecomPlacesUser;
         private System.Windows.Forms.Label NameOfEarlyPlaceUser;
+        private System.Windows.Forms.Button AddPlaceAdmin;
     }
 }
 
