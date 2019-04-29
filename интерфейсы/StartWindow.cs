@@ -5,10 +5,12 @@ using System.ComponentModel;
 using System.Data;
 using System.Data.OleDb;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml.Serialization;
 
 namespace интерфейсы
 {
@@ -18,16 +20,19 @@ namespace интерфейсы
         LOG LOG;
         OleDbConnection connection = new OleDbConnection(connectString);
         OleDbCommand commandReader = new OleDbCommand();
+        public User user = new User();
+        public XmlSerializer xs = new XmlSerializer(typeof(Places));
+        public Places DataOfAllPlaces = new Places();
         public StartWindow()
         {
             InitializeComponent();
             CurrentUserLog = new CurrentUserLog();
             LOG = new LOG(CurrentUserLog);
         }
-        public static string connectString = "Provider=Microsoft.ACE.OLEDB.12.0;Data source=UsersData.accdb";
+        public static string connectString = "Provider=Microsoft.ACE.OLEDB.12.0;Data source=UsersData.accdb", path = @"C:\Users\teesh\source\repos\интерфейсы2\интерфейсы\bin\Debug";
         public int index = 0;
         public bool flag = true;
-        public string typeOfUser = null;
+        public string[] Files;
         private void Enter_Click(object sender, EventArgs e)
         {
             while (flag)
@@ -45,7 +50,7 @@ namespace интерфейсы
                     {
                         flag = false;
                         break;
-                    }    
+                    }
                 }
                 reader.Close();
                 connection.Close();
@@ -53,7 +58,7 @@ namespace интерфейсы
                 {
                     MessageBox.Show("Неверный логин или пароль", "2ГИС путеводитель", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     break;
-                }   
+                }
                 if (LoginStartMenu.Text.Length == 0)
                     flag = false;
             }
@@ -61,6 +66,8 @@ namespace интерфейсы
             {
                 CurrentUserLog.currentLogin = LoginStartMenu.Text;
                 CurrentUserLog.currentPassword = PasswordStartMenu.Text;
+                user.Login = CurrentUserLog.currentLogin;
+                user.TypeOfUser = new TypeOfUser();
                 if (LoginStartMenu.Text.Length != 0)
                 {
                     commandReader.CommandType = CommandType.Text;
@@ -71,22 +78,22 @@ namespace интерфейсы
                     while (reader.Read())
                     {
                         if (reader[0].ToString() == CurrentUserLog.currentLogin)
-                            typeOfUser = reader[1].ToString();
+                            user.TypeOfUser.CurrentTypeOfUser = reader[1].ToString();
                     }
                     reader.Close();
                     connection.Close();
                     LOG.DoLog(Enter.Name);
-                    if (typeOfUser == "Представитель")
+                    if (user.TypeOfUser.CurrentTypeOfUser == "Представитель")
                     {
                         LoginSpokesMan.Text = LoginStartMenu.Text;
-                        index += 5;
+                        index += 4;
                         ProgramTab.SelectedIndex = index;
                         index = 0;
                     }
-                    else if (typeOfUser.Equals("Администратор"))
+                    else if (user.TypeOfUser.CurrentTypeOfUser.Equals("Администратор"))
                     {
                         LoginAdmin.Text = LoginStartMenu.Text;
-                        index += 6;
+                        index += 5;
                         ProgramTab.SelectedIndex = index;
                         index = 0;
                     }
@@ -105,9 +112,32 @@ namespace интерфейсы
                     index++;
                     ProgramTab.SelectedIndex = index;
                     index = 0;
+                    MyPlaces.Enabled = false;
+                    MyRouteUser.Enabled = false;
                 }
             }
             flag = true;
+            if (Files != null && Files.Length > index && user.TypeOfUser.CurrentTypeOfUser == "Представитель")
+            {
+                for (int i = 0; i < DataOfAllPlaces.ListOfPlaces.Count; i++)
+                {
+                    var place = DataOfAllPlaces.ListOfPlaces[i];
+                    if (place.Information.SpokesmanName == LoginSpokesMan.Text)
+                    {
+                        ListOfPlacesUser.Items.Add(place);
+                    }
+                }
+            }
+            if (Files != null && Files.Length > index && user.TypeOfUser.CurrentTypeOfUser == "Пользователь")
+            {
+                for (int i = 0; i < DataOfAllPlaces.ListOfPlaces.Count; i++)
+                {
+                    var place = DataOfAllPlaces.ListOfPlaces[i];
+                    ListOfPlacesUser.Items.Add(place);
+                    RecomPlacesUser.Items.Add(place);
+                    VisitedPlacesUser.Items.Add(place);
+                }
+            }
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -122,34 +152,27 @@ namespace интерфейсы
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            var massive = new PictureBox[] {LikePictureVisited1, LikePictureVisited2, LikePictureStart1,
-                LikePictureStart2, RecomendedLikePicture1, RecomendedLikePicture2,
-                DisLikePictureVisited1, DisLikePictureVisited2,DisLikePictureStart1, DisLikePictureStart2,
-                RecomendedDisLikePicture1, RecomendedDisLikePicture2};
-            for (int i = 0; i < 6; i++)
+            var logouts = new PictureBox[] { Logout, LogoutSpokesman, LogoutAdmin };
+            for (int i = 0; i < logouts.Length; i++)
             {
-                massive[i].Image = Image.FromFile(@"C:\Users\teesh\Desktop\Копия флешки\STORE N GO\Иконки\img_165452.png");
-                massive[i].SizeMode = PictureBoxSizeMode.StretchImage;
+                logouts[i].Image = Image.FromFile(@"C:\Users\teesh\Desktop\Копия флешки\STORE N GO\Иконки\Logout.png");
+                logouts[i].SizeMode = PictureBoxSizeMode.StretchImage;
+            }
+            Files = Directory.GetFiles(path, "*.places");
+            if (Files != null && Files.Length > index)
+            {
+                var file = File.OpenRead("Список мест.places");
+                DataOfAllPlaces = (Places)xs.Deserialize(file);
+                file.Close();
+                for (int i = 0; i < DataOfAllPlaces.ListOfPlaces.Count; i++)
+                {
+                    var place = DataOfAllPlaces.ListOfPlaces[i];
+                    BestPlaceLastWeek.Items.Add(place);
+                    PlacesForRating.Items.Add(place);
+                }
             }
 
-            for (int i = 6; i < 12; i++)
-            {
-                massive[i].Image = Image.FromFile(@"C:\Users\teesh\Desktop\Копия флешки\STORE N GO\Иконки\Dislike.png");
-                massive[i].SizeMode = PictureBoxSizeMode.StretchImage;
-            }
-            Logout.Image = Image.FromFile(@"C:\Users\teesh\Desktop\Копия флешки\STORE N GO\Иконки\Logout.png");
-            Logout.SizeMode = PictureBoxSizeMode.StretchImage;
-            LogoutSpokesman.Image = Image.FromFile(@"C:\Users\teesh\Desktop\Копия флешки\STORE N GO\Иконки\Logout.png");
-            LogoutSpokesman.SizeMode = PictureBoxSizeMode.StretchImage;
-            LogoutAdmin.Image = Image.FromFile(@"C:\Users\teesh\Desktop\Копия флешки\STORE N GO\Иконки\Logout.png");
-            LogoutAdmin.SizeMode = PictureBoxSizeMode.StretchImage;
         }
-
-        private void TableOfBestPlaces_Paint(object sender, PaintEventArgs e)
-        {
-            
-        }
-
         private void label4_Click(object sender, EventArgs e)
         {
 
@@ -173,33 +196,18 @@ namespace интерфейсы
             index += 2;
             ProgramTab.SelectedIndex = index;
             index = 0;
-            ListOfPlacesUser.Items.Clear();
         }
         public void GetRatingMenu()
         {
-            index += 4;
+            index += 3;
             ProgramTab.SelectedIndex = index;
             index = 0;
-            PlacesForRating.Items.Clear();
-            string connectPlaceData = "Provider=Microsoft.ACE.OLEDB.12.0;Data source=PlacesData.accdb";
-            OleDbConnection connection = new OleDbConnection(connectPlaceData);
-            OleDbCommand commandReader = new OleDbCommand();
-            commandReader.CommandType = CommandType.Text;
-            commandReader.Connection = connection;
-            commandReader.CommandText = "SELECT Номер, Имя, Лайки, Дизлайки FROM PlacesData ORDER BY Номер";
-            connection.Open();
-            OleDbDataReader reader = commandReader.ExecuteReader();
-            while (reader.Read())
-            {
-                PlacesForRating.Items.Add(reader[0].ToString() + ".  " + reader[1].ToString() + ";  " + reader[2].ToString() + " лайка;  " + reader[3].ToString() + " дизлайка|");
-            }
-            reader.Close();
+
         }
         private void RatingUser_Click(object sender, EventArgs e)
         {
             LOG.DoLog(RatingUser.Name);
             GetRatingMenu();
-
         }
 
         private void Menu_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -209,7 +217,7 @@ namespace интерфейсы
 
         private void ActiveUser_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            if(ActiveUser.Text == "Войдите в систему")
+            if (ActiveUser.Text == "Войдите в систему")
                 ProgramTab.SelectedIndex = index;
         }
 
@@ -229,24 +237,23 @@ namespace интерфейсы
         private void MyRouteUser_Click(object sender, EventArgs e)
         {
             LOG.DoLog(MyRouteUser.Name);
-            index += 3;
-            ProgramTab.SelectedIndex = index;
-            index = 0;
+            var newRought = new NewRoughts() { AllPlaces = DataOfAllPlaces, userForRought = user };
+            newRought.Show();
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            if(typeOfUser == "Администратор")
+            if (user.TypeOfUser.CurrentTypeOfUser == "Администратор")
             {
                 LOG.DoLog(FromPlacesToMain3.Name);
-                index += 6;
+                index += 5;
                 ProgramTab.SelectedIndex = index;
                 index = 0;
             }
-            else if(typeOfUser == "Представитель")
+            else if (user.TypeOfUser.CurrentTypeOfUser == "Представитель")
             {
                 LOG.DoLog(FromPlacesToMain3.Name);
-                index +=5;
+                index += 4;
                 ProgramTab.SelectedIndex = index;
                 index = 0;
             }
@@ -256,23 +263,15 @@ namespace интерфейсы
                 index++;
                 ProgramTab.SelectedIndex = index;
                 index = 0;
-            } 
-        }
-
-        private void FromPlacesToMain2_Click(object sender, EventArgs e)
-        {
-            LOG.DoLog(FromPlacesToMain2.Name);
-            index++;
-            ProgramTab.SelectedIndex = index;
-            index = 0;
+            }
         }
 
         private void FromPlacesToMain_Click(object sender, EventArgs e)
         {
-            if (typeOfUser == "Представитель")
+            if (user.TypeOfUser.CurrentTypeOfUser == "Представитель")
             {
                 LOG.DoLog(FromPlacesToMain.Name);
-                index += 5;
+                index += 4;
                 ProgramTab.SelectedIndex = index;
                 index = 0;
             }
@@ -292,10 +291,16 @@ namespace интерфейсы
 
         private void NewPlaceSpokesman_Click(object sender, EventArgs e)
         {
-            var MenuNewPlace = new NewPlace();
-            MenuNewPlace.Show();
-
-
+            if (Files.Count() == 0)
+            {
+                var MenuNewPlace = new NewPlace();
+                MenuNewPlace.Show();
+            }
+            else
+            {
+                var MenuNewPlace = new NewPlace() { AllPlaces = DataOfAllPlaces };
+                MenuNewPlace.Show();
+            }
         }
 
         private void RatingSpokesman_Click(object sender, EventArgs e)
@@ -308,30 +313,101 @@ namespace интерфейсы
         {
             LOG.DoLog(InfSpokesman.Name);
             var form = new Form();
-            var result = MessageBox.Show("2ГИС путеводитель v. 0.2 alpha\n" + "© 2019 Ovchinnikov JMA", "О приложении 2ГИС путеводитель", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            var result = MessageBox.Show("2ГИС путеводитель v. 0.6 alpha\n" + "© 2019 Ovchinnikov JMA", "О приложении 2ГИС путеводитель", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void RatingAdmin_Click(object sender, EventArgs e)
         {
-            LOG.DoLog(RatingAdmin.Name);
             GetRatingMenu();
         }
 
         private void ListOfPlacesUser_MouseDoubleClick(object sender, MouseEventArgs e)
         {
-            int index = ListOfPlacesUser.IndexFromPoint(e.Location);
-            if (index != ListBox.NoMatches)
-            {
-                var item = (Place)ListOfPlacesUser.Items[index];
-                var pm = new PlaceMenu() { Place = item };
-                pm.Show();
-            }
+            GetPlaceMenu(ListOfPlacesUser, e);
         }
 
         private void LogoutAdmin_Click(object sender, EventArgs e)
         {
-            LOG.DoLog(Logout.Name);
             ProgramTab.SelectedIndex = index;
+            LoginStartMenu.Clear();
+            PasswordStartMenu.Clear();
+        }
+
+        private void PlaceOfSpokesman_Click(object sender, EventArgs e)
+        {
+            LOG.DoLog(PlaceOfSpokesman.Name);
+            index = 2;
+            ProgramTab.SelectedIndex = index;
+            index = 0;
+        }
+
+        private void LoginAdmin_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void AddPlaceAdmin_Click(object sender, EventArgs e)
+        {
+            if (Files.Count() == 0)
+            {
+                var MenuNewPlace = new NewPlace();
+                MenuNewPlace.Show();
+            }
+            else
+            {
+                var MenuNewPlace = new NewPlace() { AllPlaces = DataOfAllPlaces };
+                MenuNewPlace.Show();
+            }
+        }
+
+        private void LogoutSpokesman_Click(object sender, EventArgs e)
+        {
+            LOG.DoLog(LogoutSpokesman.Name);
+            ProgramTab.SelectedIndex = index;
+            LoginStartMenu.Clear();
+            PasswordStartMenu.Clear();
+        }
+        public void GetPlaceMenu(ListBox listbox, MouseEventArgs e)
+        {
+            int index = listbox.IndexFromPoint(e.Location);
+            if (index != ListBox.NoMatches)
+            {
+                var item = (Place)listbox.Items[index];
+                if(ActiveUser.Text != "Войдите в систему")
+                {
+                    var pm = new PlaceMenu(user) { Place = item };
+                    pm.Show();
+                }
+                else
+                {
+                    var pm = new PlaceMenu() { Place = item };
+                    pm.Show();
+                }
+            }
+        }
+        private void BestPlaceLastWeek_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            GetPlaceMenu(BestPlaceLastWeek, e);
+        }
+
+        private void RecomPlacesUser_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            GetPlaceMenu(RecomPlacesUser, e);
+        }
+
+        private void VisitedPlacesUser_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            GetPlaceMenu(VisitedPlacesUser, e);
+        }
+
+        private void PlacesForRating_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            GetPlaceMenu(PlacesForRating, e);
         }
 
         private void ListOfUsers_Click(object sender, EventArgs e)
