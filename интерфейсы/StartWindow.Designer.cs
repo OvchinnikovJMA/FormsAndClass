@@ -36,6 +36,8 @@
             this.ListOfUsers = new System.Windows.Forms.Button();
             this.LoginAdmin = new System.Windows.Forms.LinkLabel();
             this.SpokesmanTab = new System.Windows.Forms.TabPage();
+            this.label4 = new System.Windows.Forms.Label();
+            this.SettingsOfPlace = new System.Windows.Forms.Button();
             this.NewPlaceSpokesman = new System.Windows.Forms.Button();
             this.MenuSpokesman = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
@@ -53,7 +55,6 @@
             this.LogoutSpokesman = new System.Windows.Forms.PictureBox();
             this.LoginSpokesMan = new System.Windows.Forms.LinkLabel();
             this.InfSpokesman = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
             this.RatingSpokesman = new System.Windows.Forms.Button();
             this.PlaceOfSpokesman = new System.Windows.Forms.Button();
             this.Rating = new System.Windows.Forms.TabPage();
@@ -101,6 +102,9 @@
             this.label1 = new System.Windows.Forms.Label();
             this.Enter = new System.Windows.Forms.Button();
             this.ProgramTab = new System.Windows.Forms.TabControl();
+            this.SettingsPlace = new System.Windows.Forms.TabPage();
+            this.ListOfPlacesForSetting = new System.Windows.Forms.ListBox();
+            this.DeletePlace = new System.Windows.Forms.Button();
             this.AdminTab.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.LogoutAdmin)).BeginInit();
             this.SpokesmanTab.SuspendLayout();
@@ -114,6 +118,7 @@
             this.panel1.SuspendLayout();
             this.StartWindowTab.SuspendLayout();
             this.ProgramTab.SuspendLayout();
+            this.SettingsPlace.SuspendLayout();
             this.SuspendLayout();
             // 
             // AdminTab
@@ -190,6 +195,8 @@
             // 
             // SpokesmanTab
             // 
+            this.SpokesmanTab.Controls.Add(this.label4);
+            this.SpokesmanTab.Controls.Add(this.SettingsOfPlace);
             this.SpokesmanTab.Controls.Add(this.NewPlaceSpokesman);
             this.SpokesmanTab.Controls.Add(this.MenuSpokesman);
             this.SpokesmanTab.Controls.Add(this.panel2);
@@ -199,7 +206,6 @@
             this.SpokesmanTab.Controls.Add(this.LogoutSpokesman);
             this.SpokesmanTab.Controls.Add(this.LoginSpokesMan);
             this.SpokesmanTab.Controls.Add(this.InfSpokesman);
-            this.SpokesmanTab.Controls.Add(this.button3);
             this.SpokesmanTab.Controls.Add(this.RatingSpokesman);
             this.SpokesmanTab.Controls.Add(this.PlaceOfSpokesman);
             this.SpokesmanTab.Location = new System.Drawing.Point(4, 22);
@@ -210,10 +216,30 @@
             this.SpokesmanTab.Text = "SpokesManTab";
             this.SpokesmanTab.UseVisualStyleBackColor = true;
             // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(204, 281);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(129, 13);
+            this.label4.TabIndex = 46;
+            this.label4.Text = "не нажимать, доделать!";
+            // 
+            // SettingsOfPlace
+            // 
+            this.SettingsOfPlace.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.SettingsOfPlace.Location = new System.Drawing.Point(203, 297);
+            this.SettingsOfPlace.Name = "SettingsOfPlace";
+            this.SettingsOfPlace.Size = new System.Drawing.Size(130, 30);
+            this.SettingsOfPlace.TabIndex = 45;
+            this.SettingsOfPlace.Text = "Настройки";
+            this.SettingsOfPlace.UseVisualStyleBackColor = true;
+            this.SettingsOfPlace.Click += new System.EventHandler(this.SettingsOfPlace_Click);
+            // 
             // NewPlaceSpokesman
             // 
             this.NewPlaceSpokesman.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.NewPlaceSpokesman.Location = new System.Drawing.Point(331, 216);
+            this.NewPlaceSpokesman.Location = new System.Drawing.Point(335, 216);
             this.NewPlaceSpokesman.Name = "NewPlaceSpokesman";
             this.NewPlaceSpokesman.Size = new System.Drawing.Size(130, 45);
             this.NewPlaceSpokesman.TabIndex = 43;
@@ -380,7 +406,7 @@
             // InfSpokesman
             // 
             this.InfSpokesman.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.InfSpokesman.Location = new System.Drawing.Point(465, 315);
+            this.InfSpokesman.Location = new System.Drawing.Point(465, 297);
             this.InfSpokesman.Name = "InfSpokesman";
             this.InfSpokesman.Size = new System.Drawing.Size(130, 30);
             this.InfSpokesman.TabIndex = 35;
@@ -388,20 +414,10 @@
             this.InfSpokesman.UseVisualStyleBackColor = true;
             this.InfSpokesman.Click += new System.EventHandler(this.InfSpokesman_Click);
             // 
-            // button3
-            // 
-            this.button3.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button3.Location = new System.Drawing.Point(197, 314);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(130, 30);
-            this.button3.TabIndex = 34;
-            this.button3.Text = "Настройки";
-            this.button3.UseVisualStyleBackColor = true;
-            // 
             // RatingSpokesman
             // 
             this.RatingSpokesman.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.RatingSpokesman.Location = new System.Drawing.Point(571, 216);
+            this.RatingSpokesman.Location = new System.Drawing.Point(598, 216);
             this.RatingSpokesman.Name = "RatingSpokesman";
             this.RatingSpokesman.Size = new System.Drawing.Size(130, 45);
             this.RatingSpokesman.TabIndex = 33;
@@ -412,7 +428,7 @@
             // PlaceOfSpokesman
             // 
             this.PlaceOfSpokesman.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.PlaceOfSpokesman.Location = new System.Drawing.Point(93, 216);
+            this.PlaceOfSpokesman.Location = new System.Drawing.Point(73, 216);
             this.PlaceOfSpokesman.Name = "PlaceOfSpokesman";
             this.PlaceOfSpokesman.Size = new System.Drawing.Size(130, 45);
             this.PlaceOfSpokesman.TabIndex = 28;
@@ -840,15 +856,16 @@
             // 
             this.PasswordStartMenu.Location = new System.Drawing.Point(565, 107);
             this.PasswordStartMenu.Name = "PasswordStartMenu";
+            this.PasswordStartMenu.PasswordChar = '*';
             this.PasswordStartMenu.Size = new System.Drawing.Size(215, 20);
-            this.PasswordStartMenu.TabIndex = 20;
+            this.PasswordStartMenu.TabIndex = 1;
             // 
             // LoginStartMenu
             // 
             this.LoginStartMenu.Location = new System.Drawing.Point(565, 69);
             this.LoginStartMenu.Name = "LoginStartMenu";
             this.LoginStartMenu.Size = new System.Drawing.Size(215, 20);
-            this.LoginStartMenu.TabIndex = 19;
+            this.LoginStartMenu.TabIndex = 0;
             // 
             // DoRegistration
             // 
@@ -856,7 +873,7 @@
             this.DoRegistration.Location = new System.Drawing.Point(638, 187);
             this.DoRegistration.Name = "DoRegistration";
             this.DoRegistration.Size = new System.Drawing.Size(72, 13);
-            this.DoRegistration.TabIndex = 22;
+            this.DoRegistration.TabIndex = 3;
             this.DoRegistration.TabStop = true;
             this.DoRegistration.Text = "Регистрация";
             this.DoRegistration.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel2_LinkClicked_1);
@@ -908,7 +925,7 @@
             this.Enter.Location = new System.Drawing.Point(629, 142);
             this.Enter.Name = "Enter";
             this.Enter.Size = new System.Drawing.Size(90, 30);
-            this.Enter.TabIndex = 15;
+            this.Enter.TabIndex = 2;
             this.Enter.Text = "Войти";
             this.Enter.UseVisualStyleBackColor = true;
             this.Enter.Click += new System.EventHandler(this.Enter_Click);
@@ -921,11 +938,47 @@
             this.ProgramTab.Controls.Add(this.Rating);
             this.ProgramTab.Controls.Add(this.SpokesmanTab);
             this.ProgramTab.Controls.Add(this.AdminTab);
-            this.ProgramTab.Location = new System.Drawing.Point(-4, -22);
+            this.ProgramTab.Controls.Add(this.SettingsPlace);
+            this.ProgramTab.Location = new System.Drawing.Point(-4, -10);
             this.ProgramTab.Name = "ProgramTab";
             this.ProgramTab.SelectedIndex = 0;
             this.ProgramTab.Size = new System.Drawing.Size(810, 397);
             this.ProgramTab.TabIndex = 0;
+            // 
+            // SettingsPlace
+            // 
+            this.SettingsPlace.Controls.Add(this.DeletePlace);
+            this.SettingsPlace.Controls.Add(this.ListOfPlacesForSetting);
+            this.SettingsPlace.Location = new System.Drawing.Point(4, 22);
+            this.SettingsPlace.Name = "SettingsPlace";
+            this.SettingsPlace.Padding = new System.Windows.Forms.Padding(3);
+            this.SettingsPlace.Size = new System.Drawing.Size(802, 371);
+            this.SettingsPlace.TabIndex = 7;
+            this.SettingsPlace.Text = "SettingsPlace";
+            this.SettingsPlace.UseVisualStyleBackColor = true;
+            // 
+            // ListOfPlacesForSetting
+            // 
+            this.ListOfPlacesForSetting.Dock = System.Windows.Forms.DockStyle.Left;
+            this.ListOfPlacesForSetting.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.ListOfPlacesForSetting.FormattingEnabled = true;
+            this.ListOfPlacesForSetting.ItemHeight = 20;
+            this.ListOfPlacesForSetting.Location = new System.Drawing.Point(3, 3);
+            this.ListOfPlacesForSetting.Name = "ListOfPlacesForSetting";
+            this.ListOfPlacesForSetting.ScrollAlwaysVisible = true;
+            this.ListOfPlacesForSetting.Size = new System.Drawing.Size(742, 365);
+            this.ListOfPlacesForSetting.TabIndex = 1;
+            this.ListOfPlacesForSetting.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.ListOfPlacesForSetting_MouseDoubleClick);
+            // 
+            // DeletePlace
+            // 
+            this.DeletePlace.Location = new System.Drawing.Point(743, 140);
+            this.DeletePlace.Name = "DeletePlace";
+            this.DeletePlace.Size = new System.Drawing.Size(59, 76);
+            this.DeletePlace.TabIndex = 2;
+            this.DeletePlace.Text = "Удалить";
+            this.DeletePlace.UseVisualStyleBackColor = true;
+            this.DeletePlace.Click += new System.EventHandler(this.DeletePlace_Click);
             // 
             // StartWindow
             // 
@@ -935,6 +988,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "StartWindow";
             this.Text = "2ГИС путеводитель";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.StartWindow_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
             this.AdminTab.ResumeLayout(false);
             this.AdminTab.PerformLayout();
@@ -958,6 +1012,7 @@
             this.StartWindowTab.ResumeLayout(false);
             this.StartWindowTab.PerformLayout();
             this.ProgramTab.ResumeLayout(false);
+            this.SettingsPlace.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -986,7 +1041,6 @@
         private System.Windows.Forms.PictureBox LogoutSpokesman;
         public System.Windows.Forms.LinkLabel LoginSpokesMan;
         private System.Windows.Forms.Button InfSpokesman;
-        private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button RatingSpokesman;
         private System.Windows.Forms.Button PlaceOfSpokesman;
         private System.Windows.Forms.TabPage Rating;
@@ -1031,11 +1085,16 @@
         private System.Windows.Forms.Button Enter;
         private System.Windows.Forms.TabControl ProgramTab;
         private System.Windows.Forms.PictureBox LogoutAdmin;
-        private System.Windows.Forms.ListBox BestPlaceLastWeek;
         private System.Windows.Forms.ListBox VisitedPlacesUser;
         private System.Windows.Forms.ListBox RecomPlacesUser;
         private System.Windows.Forms.Label NameOfEarlyPlaceUser;
         private System.Windows.Forms.Button AddPlaceAdmin;
+        public System.Windows.Forms.ListBox BestPlaceLastWeek;
+        private System.Windows.Forms.Button SettingsOfPlace;
+        private System.Windows.Forms.TabPage SettingsPlace;
+        private System.Windows.Forms.ListBox ListOfPlacesForSetting;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Button DeletePlace;
     }
 }
 

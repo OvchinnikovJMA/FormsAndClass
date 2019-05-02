@@ -30,6 +30,7 @@ namespace интерфейсы
         public Information Information = new Information();
         public Address Address = new Address();
         public readonly Label addressText = new Label();
+        public readonly Label contactsText = new Label();
         private void Form4_Load(object sender, EventArgs e)
         {
             var Rating = new Rating();
@@ -45,6 +46,7 @@ namespace интерфейсы
             DisLikePicture1Info.Image = Image.FromFile(@"C:\Users\teesh\Desktop\Копия флешки\STORE N GO\Иконки\Dislike.png");
             DisLikePicture1Info.SizeMode = PictureBoxSizeMode.StretchImage;
             GetAddress();
+            GetContacts();
         }
         public void GetAddress()
         {
@@ -53,6 +55,24 @@ namespace интерфейсы
             addressText.Location = new Point(15, InformationPlaceInfo.Location.Y + InformationPlaceInfo.Height + 10);
             addressText.Width = 448;
             addressText.Text = $"г.{Place.Information.Address.City}, Улица: {Place.Information.Address.Street.Name}, Номер: {Place.Information.Address.Street.Number}";
+        }
+        public void GetContacts()
+        {
+            var Contacts = new Contacts();
+            splitContainer1.Panel2.Controls.Add(contactsText);
+            contactsText.Location = new Point(15, addressText.Height + addressText.Location.Y + 10);
+            contactsText.Width = 448;
+            contactsText.AutoSize = true;
+            contactsText.Text = $" Номер телефона: ";
+            for (int i = 0; i < Place.Contacts.PhoneNumber.Count; i++)
+            {
+                contactsText.Text += $"{Place.Contacts.PhoneNumber[i]} ";
+            }
+            contactsText.Text += $"\n Контакты: ";
+            for (int i = 0; i < Place.Contacts.SocialContacts.Count; i++)
+            {
+                contactsText.Text += $"{Place.Contacts.SocialContacts[i]} ";
+            }           
         }
         private void splitContainer1_Panel2_Paint(object sender, PaintEventArgs e)
         {

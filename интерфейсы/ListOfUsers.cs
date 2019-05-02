@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DoubleGisGidClasses;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -29,7 +30,7 @@ namespace интерфейсы
             OleDbDataReader reader = commandReader.ExecuteReader();
             while (reader.Read())
             {
-                ListboxOfUsers.Items.Add(reader[0].ToString() + ". " + reader[1].ToString() + " | " + reader[2].ToString() + " | " + reader[3].ToString() + " |");
+                ListOfUsersData.Items.Add($"{reader[0].ToString()}. {reader[1].ToString()} | {reader[2].ToString()} | {reader[3].ToString()};");
             }
             reader.Close();
             connection.Close();

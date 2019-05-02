@@ -61,6 +61,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ChangeUserData.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ChangeUserData.Designer.cs">
+      <DependentUpon>ChangeUserData.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Hash.cs" />
     <Compile Include="ListOfUsers.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -86,23 +93,11 @@
     <Compile Include="StartWindow.Designer.cs">
       <DependentUpon>StartWindow.cs</DependentUpon>
     </Compile>
-    <Compile Include="MainMenuForUser%28не входит в работу проекта%29.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="MainMenuForUser%28не входит в работу проекта%29.Designer.cs">
-      <DependentUpon>MainMenuForUser%28не входит в работу проекта%29.cs</DependentUpon>
-    </Compile>
     <Compile Include="PlaceMenu.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="PlaceMenu.Designer.cs">
       <DependentUpon>PlaceMenu.cs</DependentUpon>
-    </Compile>
-    <Compile Include="MainMenuForSalesMan.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="MainMenuForSalesMan.Designer.cs">
-      <DependentUpon>MainMenuForSalesMan.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -112,6 +107,9 @@
     <Compile Include="RegistrationForm.Designer.cs">
       <DependentUpon>RegistrationForm.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="ChangeUserData.resx">
+      <DependentUpon>ChangeUserData.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ListOfUsers.resx">
       <DependentUpon>ListOfUsers.cs</DependentUpon>
     </EmbeddedResource>
@@ -124,14 +122,8 @@
     <EmbeddedResource Include="StartWindow.resx">
       <DependentUpon>StartWindow.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="MainMenuForUser%28не входит в работу проекта%29.resx">
-      <DependentUpon>MainMenuForUser%28не входит в работу проекта%29.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="PlaceMenu.resx">
       <DependentUpon>PlaceMenu.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="MainMenuForSalesMan.resx">
-      <DependentUpon>MainMenuForSalesMan.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
