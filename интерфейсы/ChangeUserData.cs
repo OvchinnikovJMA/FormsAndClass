@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DoubleGisGidClasses;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -10,11 +11,15 @@ using System.Windows.Forms;
 
 namespace интерфейсы
 {
-    public partial class MainMenuForSalesMan : Form
+    public partial class ChangeUserData : Form
     {
-        public MainMenuForSalesMan()
+        public ChangeUserData()
         {
             InitializeComponent();
+        }
+        private void ChangeUserData_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

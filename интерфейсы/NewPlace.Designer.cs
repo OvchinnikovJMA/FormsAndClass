@@ -48,8 +48,6 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.EnterTelephones = new System.Windows.Forms.TextBox();
-            this.EnterContacts = new System.Windows.Forms.TextBox();
             this.downloadnumber = new System.Windows.Forms.LinkLabel();
             this.downloadcontact = new System.Windows.Forms.LinkLabel();
             this.NewPlaceComplete = new System.Windows.Forms.Button();
@@ -57,6 +55,8 @@
             this.DateForAdmin = new System.Windows.Forms.Label();
             this.EnterNameOfSpokesman = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
+            this.NumberComboBox = new System.Windows.Forms.ComboBox();
+            this.ContactsComboBox = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // NameOfSpokesman
@@ -237,22 +237,6 @@
             this.label5.TabIndex = 20;
             this.label5.Text = "Контакты";
             // 
-            // EnterTelephones
-            // 
-            this.EnterTelephones.Location = new System.Drawing.Point(288, 281);
-            this.EnterTelephones.Multiline = true;
-            this.EnterTelephones.Name = "EnterTelephones";
-            this.EnterTelephones.Size = new System.Drawing.Size(126, 20);
-            this.EnterTelephones.TabIndex = 21;
-            // 
-            // EnterContacts
-            // 
-            this.EnterContacts.Location = new System.Drawing.Point(528, 281);
-            this.EnterContacts.Multiline = true;
-            this.EnterContacts.Name = "EnterContacts";
-            this.EnterContacts.Size = new System.Drawing.Size(126, 20);
-            this.EnterContacts.TabIndex = 22;
-            // 
             // downloadnumber
             // 
             this.downloadnumber.AutoSize = true;
@@ -324,11 +308,29 @@
             this.label6.TabIndex = 29;
             this.label6.Text = "Название места";
             // 
+            // NumberComboBox
+            // 
+            this.NumberComboBox.FormattingEnabled = true;
+            this.NumberComboBox.Location = new System.Drawing.Point(288, 281);
+            this.NumberComboBox.Name = "NumberComboBox";
+            this.NumberComboBox.Size = new System.Drawing.Size(121, 21);
+            this.NumberComboBox.TabIndex = 30;
+            // 
+            // ContactsComboBox
+            // 
+            this.ContactsComboBox.FormattingEnabled = true;
+            this.ContactsComboBox.Location = new System.Drawing.Point(528, 280);
+            this.ContactsComboBox.Name = "ContactsComboBox";
+            this.ContactsComboBox.Size = new System.Drawing.Size(121, 21);
+            this.ContactsComboBox.TabIndex = 31;
+            // 
             // NewPlace
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(784, 401);
+            this.Controls.Add(this.ContactsComboBox);
+            this.Controls.Add(this.NumberComboBox);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.EnterNameOfSpokesman);
             this.Controls.Add(this.DateForAdmin);
@@ -336,8 +338,6 @@
             this.Controls.Add(this.NewPlaceComplete);
             this.Controls.Add(this.downloadcontact);
             this.Controls.Add(this.downloadnumber);
-            this.Controls.Add(this.EnterContacts);
-            this.Controls.Add(this.EnterTelephones);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label1);
@@ -392,9 +392,9 @@
         public System.Windows.Forms.TextBox EnterRegionNewPlaceSpokesman;
         public System.Windows.Forms.TextBox EnterNumberStreetSPM;
         public System.Windows.Forms.TextBox EnterNameStreet;
-        public System.Windows.Forms.TextBox EnterTelephones;
-        public System.Windows.Forms.TextBox EnterContacts;
         public System.Windows.Forms.DateTimePicker DateRegisterPicker;
         public System.Windows.Forms.TextBox EnterNameOfSpokesman;
+        private System.Windows.Forms.ComboBox NumberComboBox;
+        private System.Windows.Forms.ComboBox ContactsComboBox;
     }
 }

@@ -46,7 +46,7 @@ namespace интерфейсы
                 {
                     var successfulLogin = reader[0].ToString();
                     var successfulPassword = reader[1].ToString();
-                    if (successfulLogin == LoginStartMenu.Text && successfulPassword == PasswordStartMenu.Text.ToString())
+                    if (successfulLogin == LoginStartMenu.Text && successfulPassword == Hash.encrypt(PasswordStartMenu.Text.ToString()))
                     {
                         flag = false;
                         break;
@@ -90,12 +90,13 @@ namespace интерфейсы
                         ProgramTab.SelectedIndex = index;
                         index = 0;
                     }
-                    else if (user.TypeOfUser.CurrentTypeOfUser.Equals("Администратор"))
+                    else if (user.TypeOfUser.CurrentTypeOfUser == "Админиcтратор")
                     {
                         LoginAdmin.Text = LoginStartMenu.Text;
                         index += 5;
                         ProgramTab.SelectedIndex = index;
                         index = 0;
+
                     }
                     else
                     {
@@ -104,7 +105,6 @@ namespace интерфейсы
                         ProgramTab.SelectedIndex = index;
                         index = 0;
                     }
-
                 }
                 else
                 {
@@ -115,29 +115,31 @@ namespace интерфейсы
                     MyPlaces.Enabled = false;
                     MyRouteUser.Enabled = false;
                 }
-            }
-            flag = true;
-            if (Files != null && Files.Length > index && user.TypeOfUser.CurrentTypeOfUser == "Представитель")
-            {
-                for (int i = 0; i < DataOfAllPlaces.ListOfPlaces.Count; i++)
+
+                if (Files != null && Files.Length > index && user.TypeOfUser.CurrentTypeOfUser == "Представитель")
                 {
-                    var place = DataOfAllPlaces.ListOfPlaces[i];
-                    if (place.Information.SpokesmanName == LoginSpokesMan.Text)
+                    for (int i = 0; i < DataOfAllPlaces.ListOfPlaces.Count; i++)
                     {
+                        var place = DataOfAllPlaces.ListOfPlaces[i];
+                        if (place.Information.SpokesmanName == LoginSpokesMan.Text)
+                        {
+                            ListOfPlacesUser.Items.Add(place);
+                            ListOfPlacesForSetting.Items.Add(place);
+                        }
+                    }
+                }
+                if (Files != null && Files.Length > index && user.TypeOfUser.CurrentTypeOfUser == "Пользователь")
+                {
+                    for (int i = 0; i < DataOfAllPlaces.ListOfPlaces.Count; i++)
+                    {
+                        var place = DataOfAllPlaces.ListOfPlaces[i];
                         ListOfPlacesUser.Items.Add(place);
+                        RecomPlacesUser.Items.Add(place);
+                        VisitedPlacesUser.Items.Add(place);
                     }
                 }
             }
-            if (Files != null && Files.Length > index && user.TypeOfUser.CurrentTypeOfUser == "Пользователь")
-            {
-                for (int i = 0; i < DataOfAllPlaces.ListOfPlaces.Count; i++)
-                {
-                    var place = DataOfAllPlaces.ListOfPlaces[i];
-                    ListOfPlacesUser.Items.Add(place);
-                    RecomPlacesUser.Items.Add(place);
-                    VisitedPlacesUser.Items.Add(place);
-                }
-            }
+            flag = true;
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -202,7 +204,6 @@ namespace интерфейсы
             index += 3;
             ProgramTab.SelectedIndex = index;
             index = 0;
-
         }
         private void RatingUser_Click(object sender, EventArgs e)
         {
@@ -225,6 +226,8 @@ namespace интерфейсы
         {
             LOG.DoLog(Logout.Name);
             ProgramTab.SelectedIndex = index;
+            LoginStartMenu.Clear();
+            PasswordStartMenu.Clear();
         }
 
         private void linkLabel2_LinkClicked_1(object sender, LinkLabelLinkClickedEventArgs e)
@@ -243,7 +246,7 @@ namespace интерфейсы
 
         private void button2_Click(object sender, EventArgs e)
         {
-            if (user.TypeOfUser.CurrentTypeOfUser == "Администратор")
+            if (user.TypeOfUser.CurrentTypeOfUser == "Админиcтратор")
             {
                 LOG.DoLog(FromPlacesToMain3.Name);
                 index += 5;
@@ -378,7 +381,7 @@ namespace интерфейсы
             if (index != ListBox.NoMatches)
             {
                 var item = (Place)listbox.Items[index];
-                if(ActiveUser.Text != "Войдите в систему")
+                if (ActiveUser.Text != "Войдите в систему")
                 {
                     var pm = new PlaceMenu(user) { Place = item };
                     pm.Show();
@@ -408,6 +411,43 @@ namespace интерфейсы
         private void PlacesForRating_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             GetPlaceMenu(PlacesForRating, e);
+        }
+
+        private void StartWindow_FormClosing(object sender, FormClosingEventArgs e)
+        {
+
+        }
+        private void SettingsOfPlace_Click(object sender, EventArgs e)
+        {
+            LOG.DoLog(SettingsOfPlace.Name);
+            index += 6;
+            ProgramTab.SelectedIndex = index;
+            index = 0;
+        }
+
+        private void ListOfPlacesForSetting_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            int index = ListOfPlacesForSetting.IndexFromPoint(e.Location);
+            if (index != ListBox.NoMatches)
+            {
+                var item = (Place)ListOfPlacesForSetting.Items[index];
+                var ChangePlace = new NewPlace(DataOfAllPlaces, item);
+                ChangePlace.Show();
+            }
+        }
+
+        private void DeletePlace_Click(object sender, EventArgs e)
+        {
+            if (ListOfPlacesForSetting.SelectedItem is Place)
+            {
+                var elem = DataOfAllPlaces.ListOfPlaces.IndexOf((Place)ListOfPlacesForSetting.SelectedItem);
+                DataOfAllPlaces.ListOfPlaces.Remove(DataOfAllPlaces.ListOfPlaces[elem]);
+                var xs = new XmlSerializer(typeof(Places));
+                var file = File.Create("Список мест.places");
+                xs.Serialize(file, DataOfAllPlaces);
+                file.Close();
+                ListOfPlacesForSetting.Items.Remove(ListOfPlacesForSetting.SelectedItem);
+            } 
         }
 
         private void ListOfUsers_Click(object sender, EventArgs e)

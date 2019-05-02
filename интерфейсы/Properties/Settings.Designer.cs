@@ -33,5 +33,26 @@ namespace интерфейсы.Properties {
                 return ((string)(this["ProgectDataUsersConnection"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\\bin\\Debug\\UsersData" +
+            ".accdb")]
+        public string UsersDataConnectionString {
+            get {
+                return ((string)(this["UsersDataConnectionString"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\\UsersData.accdb")]
+        public string UsersDataConnectionString1 {
+            get {
+                return ((string)(this["UsersDataConnectionString1"]));
+            }
+        }
     }
 }

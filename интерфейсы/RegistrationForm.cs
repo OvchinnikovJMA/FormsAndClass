@@ -75,7 +75,7 @@ namespace интерфейсы
             user.TypeOfUser = new TypeOfUser();
             user.GenderType = new GenderType();
             user.Login = RegistrationLogin.Text.ToString();
-            user.Password = RegistrationPassword.Text.ToString();
+            user.Password = Hash.encrypt(RegistrationPassword.Text.ToString());
             if (WomanGender.Checked)
                 user.GenderType.CurrentTypeOfGender = "Женщина";
             else if (ManGender.Checked)
@@ -131,6 +131,11 @@ namespace интерфейсы
         }
 
         private void RegistrationForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)
         {
 
         }
