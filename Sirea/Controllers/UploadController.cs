@@ -1,9 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Sirea.Models.DataAccessPostgreSqlProvider;
+using DoubleGisGidClasses;
 
 namespace Sirea.Controllers
 {
@@ -15,79 +21,75 @@ namespace Sirea.Controllers
             return View();
         }
 
-        // GET: Upload/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
-
-        // GET: Upload/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
         // POST: Upload/Create
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public ActionResult DoUpload(IFormFile file)
         {
-            try
+            using (var stream = file.OpenReadStream())
             {
-                // TODO: Add insert logic here
+                var xs = new XmlSerializer(typeof(Places));
+                var places = (Places)xs.Deserialize(stream);
+                using (var db = new DoubleGisGidDbContext())
+                {
+                    foreach (var place in places.ListOfPlaces)
+                    {
+                        var dbp = new DbPlace()
+                        {
+                            Name = place.Name,
+                            MainPhoto = place.MainPhoto,
+                        };
+                        dbp.Information = new DbInformation()
+                        {
+                            Discription = place.Information.Discription,
+                            Address = new DbAddress()
+                            {
+                                City = place.Information.Address.City,
+                                Region = place.Information.Address.Region,
+                                Street = new DbStreet()
+                                {
+                                    Name = place.Information.Address.Street.Name,
+                                    Number = place.Information.Address.Street.Number,
+                                }
 
-                return RedirectToAction(nameof(Index));
+                            },
+                            SpokesmanName = place.Information.SpokesmanName,
+
+                        };
+                        dbp.Rating = new DbRating()
+                        {
+                            Likes = place.Rating.Likes,
+                            Dislikes = place.Rating.Dislikes,
+                        };
+                        dbp.RegistrationDate = new DateTime();
+                        dbp.RegistrationDate = place.RegistrationDate;
+                        dbp.Contacts = new DbContacts()
+                        {
+                            PhoneNumber = place.Contacts.PhoneNumber,
+                            SocialContacts = place.Contacts.SocialContacts,
+                        };
+                        db.Places.Add(dbp);
+                    }
+                    db.SaveChanges();
+                }
+                return View(places);
             }
-            catch
+        }
+      
+        public ActionResult Image(int id)
+        {
+            using (var db = new DoubleGisGidDbContext())
             {
-                return View();
+                return base.File(db.Places.Find(id).MainPhoto, "image/png");
             }
         }
 
-        // GET: Upload/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: Upload/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
-        {
-            try
-            {
-                // TODO: Add update logic here
-
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: Upload/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: Upload/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
+        //public ActionResult List()
+        //{
+        //    List<DbPlace> list;
+        //    using (var db = new DoubleGisGidDbContext())
+        //    {
+        //        list = db.Places.Include(p =>p.)
+        //    }
+        //}
     }
 }

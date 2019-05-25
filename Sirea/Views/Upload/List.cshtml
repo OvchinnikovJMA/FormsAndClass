@@ -1,5 +1,39 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model System.Collections.Generic.List<Sirea.Models.DataAccessPostgreSqlProvider.DbPlace>
 @{
+    ViewBag.Title = "Места города Екатеринбурга";
+    Layout = "_Layout";
+}
+<h2>@ViewBag.Title</h2>
+@foreach (var place in Model)
+{
+    <div>
+        <p align="center">@place.Id - @place.Name</p>
+        <img src="Image?id=@place.Id" />
+        <table class="table table-bordered table-responsive table-hover">
+            <thead>
+                <tr>
+                    <td>Название</td>
+                    <td>Количество лайков</td>
+                    <td>Количество Дизлайков</td>
+                    <td>Имя представителя</td>
+                    <td>Описание</td>
+                    <td>Город</td>
+                    <td>Улица</td>
+                    <td>Телефон</td>
+                    <td>Ссылки</td>
+                </tr>
+            </thead>
+            <tr>
+                <td>@place.Name</td>
+                <td>@place.Rating.Likes</td>
+                <td>@place.Rating.Dislikes</td>
+                <td>@place.Information.SpokesmanName</td>
+                <td>@place.Information.Discription</td>
+                <td>@place.Information.Address.Region; @place.Information.Address.City</td>
+                <td>@place.Information.Address.Street.Name; @place.Information.Address.Street.Number</td>
+                <td>@place.Contacts.DoNumbers()</td>
+                <td>@place.Contacts.DoContacts()</td>
+            </tr>
+        </table>
+    </div>
 }

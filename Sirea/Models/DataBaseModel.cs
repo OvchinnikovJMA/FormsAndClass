@@ -18,15 +18,15 @@ namespace Sirea.Models
             {
                 Database.EnsureCreated();
             }
-            public DoubleGisGidDbContext(DbContextOptions<DoubleGisGidDbContext> options): base(options)
+            public DoubleGisGidDbContext(DbContextOptions<DoubleGisGidDbContext> options) : base(options)
             {
 
             }
-            public DbSet<DbPlace> Place { get; set; }
+            public DbSet<DbPlace> Places { get; set; }
             public static string ConnectionString { get; set; }
             protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
             {
-                optionsBuilder.UseNpgsql(ConnectionString);
+                optionsBuilder.UseNpgsql(DoubleGisGidDbContext.ConnectionString);
                 base.OnConfiguring(optionsBuilder);
             }
         }
@@ -36,6 +36,9 @@ namespace Sirea.Models
         /// </summary>
         public class DbPlace
         {
+            [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+            public int Id { get; set; }
+
             /// <summary>
             /// Название места
             /// </summary>
@@ -70,6 +73,12 @@ namespace Sirea.Models
         /// </summary>
         public class DbContacts
         {
+            [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+            public int Id { get; set; }
+
+            public int PlaceId { get; set; }
+            [ForeignKey("PlaceId")]
+            public virtual DbPlace Place { get; set; }
             /// <summary>
             /// Номера телефона представителей места(при необходимости)
             /// </summary>
@@ -78,12 +87,36 @@ namespace Sirea.Models
             /// Ссылки на соц.сети
             /// </summary>
             public List<string> SocialContacts { get; set; }
+            public string DoNumbers()
+            {
+                var result = "";
+                foreach (var number in PhoneNumber)
+                {
+                    result += $"{number} ;";
+                }
+                return result;
+            }
+            public string DoContacts()
+            {
+                var result = "";
+                foreach (var number in PhoneNumber)
+                {
+                    result += $"{number} ;";
+                }
+                return result;
+            }
         }
         /// <summary>
         /// Информация о месте, которую сооставляет представитель
         /// </summary>
         public class DbInformation
         {
+            [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+            public int Id { get; set; }
+
+            public int PlaceId { get; set; }
+            [ForeignKey("PlaceId")]
+            public virtual DbPlace Place { get; set; }
             /// <summary>
             /// Имя предсавителя места
             /// </summary>
@@ -102,6 +135,12 @@ namespace Sirea.Models
         /// </summary>
         public class DbAddress
         {
+            [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+            public int Id { get; set; }
+
+            public int PlaceId { get; set; }
+            [ForeignKey("PlaceId")]
+            public virtual DbPlace Place { get; set; }
             /// <summary>
             /// Город, где находится место
             /// </summary>
@@ -117,6 +156,12 @@ namespace Sirea.Models
         /// </summary>
         public class DbStreet
         {
+            [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+            public int Id { get; set; }
+
+            public int PlaceId { get; set; }
+            [ForeignKey("PlaceId")]
+            public virtual DbPlace Place { get; set; }
             public double Number { get; set; }
             public string Name { get; set; }
         }
@@ -125,6 +170,12 @@ namespace Sirea.Models
         /// </summary>
         public class DbRating
         {
+            [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+            public int Id { get; set; }
+
+            public int PlaceId { get; set; }
+            [ForeignKey("PlaceId")]
+            public virtual DbPlace Place { get; set; }
             public int Likes { get; set; }
             public int Dislikes { get; set; }
         }

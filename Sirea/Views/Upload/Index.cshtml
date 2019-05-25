@@ -1,5 +1,18 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
+﻿@{ 
+    ViewBag.Title = "Загрузка списка мест";
+    Layout = "_Layout";
+}
+
+<h2>Загрузите файл .places</h2>
+
+@using (Html.BeginForm("DoUpload",
+     "Upload",
+     FormMethod.Post,
+     new { enctype = "multipart/form-data" }))
+{
+    <label for="file">Выберите файл:</label>
+    <input type="file" name="file" id="file"/><br><br>
+    <input type="submit" value="Отправить"/>
+    <br><br>
+    @ViewBag.Message
 }

@@ -35,8 +35,10 @@ namespace Sirea
 
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-            var sqlConnectionString = Configuration.GetConnectionString("SpaceFleetDbProvider");
-            
+            var sqlConnectionString = Configuration.GetConnectionString("DoubleGisGidDbProvider");
+            DoubleGisGidDbContext.ConnectionString = sqlConnectionString;
+
+            services.AddDbContext<DoubleGisGidDbContext>(options => options.UseNpgsql(sqlConnectionString));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
