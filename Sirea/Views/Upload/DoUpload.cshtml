@@ -1,0 +1,38 @@
+﻿@model DoubleGisGidClasses.Places
+
+@{
+    ViewBag.Title = "Загруженные Места города";
+    Layout = "_Layout";
+}
+
+<h2>Места города</h2>
+
+<table class="table table-bordered table-responsive table-hover">
+    <thead>
+        <tr>
+            <td>Название</td>
+            <td>Лайки</td>
+            <td>Дизлайки</td>
+            <td>Имя представителя</td>
+            <td>Описание</td>
+            <td>Город</td>
+            <td>Улица</td>
+            <td>Телефон</td>
+            <td>Ссылки</td>
+        </tr>
+    </thead>
+    @foreach (var place in Model.ListOfPlaces)
+    {
+        <tr>
+            <td>@place.Name</td>
+            <td>@place.Rating.Likes</td>
+            <td>@place.Rating.Dislikes</td>
+            <td>@place.Information.SpokesmanName</td>
+            <td>@place.Information.Discription</td>
+            <td>@place.Information.Address.Region; @place.Information.Address.City</td>
+            <td>@place.Information.Address.Street.Name; @place.Information.Address.Street.Number</td>
+            <td>@place.Contacts.DoNumbers()</td>
+            <td>@place.Contacts.DoContacts()</td>
+        </tr>
+    }
+</table>

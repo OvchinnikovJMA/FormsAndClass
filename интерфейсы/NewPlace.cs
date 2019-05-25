@@ -48,8 +48,6 @@ namespace интерфейсы
 
         public void ChangePlaceSettings()
         {
-            //if (Place.Contacts.SocialContacts == null)
-            //    Place.Contacts.SocialContacts = new Contacts;
             flag = true;
             NameOfPlaceSPM.Text = Place.Name;
             EnterCityNewPlaceSpokesman.Text = Place.Information.Address.City;
@@ -63,7 +61,6 @@ namespace интерфейсы
                 NumberComboBox.Items.Add(Place.Contacts.PhoneNumber[i]);
             for (int i = 0; i < Place.Contacts.SocialContacts.Count; i++)
                 ContactsComboBox.Items.Add(Place.Contacts.SocialContacts[i]);
-
         }
 
         public void GetNewPlaceReg()

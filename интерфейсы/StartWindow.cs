@@ -1,21 +1,23 @@
 ﻿using DoubleGisGidClasses;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Data.OleDb;
 using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Serialization;
+using Excel = Microsoft.Office.Interop.Excel;
+using Word = Microsoft.Office.Interop.Word;
 
 namespace интерфейсы
 {
     public partial class StartWindow : Form
     {
+        private Word.Application WApp = new Word.Application();
+        private Excel.Application exApp = new Excel.Application();
+        private Excel.Worksheet exWorksheet = new Excel.Worksheet();
+        private Word.Document Wdocum = new Word.Document();
         CurrentUserLog CurrentUserLog;
         LOG LOG;
         OleDbConnection connection = new OleDbConnection(connectString);
@@ -375,10 +377,10 @@ namespace интерфейсы
             LoginStartMenu.Clear();
             PasswordStartMenu.Clear();
         }
-        public void GetPlaceMenu(ListBox listbox, MouseEventArgs e)
+        public void GetPlaceMenu(System.Windows.Forms.ListBox listbox, MouseEventArgs e)
         {
             int index = listbox.IndexFromPoint(e.Location);
-            if (index != ListBox.NoMatches)
+            if (index != System.Windows.Forms.ListBox.NoMatches)
             {
                 var item = (Place)listbox.Items[index];
                 if (ActiveUser.Text != "Войдите в систему")
@@ -428,7 +430,7 @@ namespace интерфейсы
         private void ListOfPlacesForSetting_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             int index = ListOfPlacesForSetting.IndexFromPoint(e.Location);
-            if (index != ListBox.NoMatches)
+            if (index != System.Windows.Forms.ListBox.NoMatches)
             {
                 var item = (Place)ListOfPlacesForSetting.Items[index];
                 var ChangePlace = new NewPlace(DataOfAllPlaces, item);
@@ -447,7 +449,64 @@ namespace интерфейсы
                 xs.Serialize(file, DataOfAllPlaces);
                 file.Close();
                 ListOfPlacesForSetting.Items.Remove(ListOfPlacesForSetting.SelectedItem);
-            } 
+            }
+        }
+
+        private void CreateExcelData_Click(object sender, EventArgs e)
+        {
+            string[] fileOfExcel;
+            fileOfExcel = Directory.GetFiles(@"C:\Users\teesh\source\repos\интерфейсы\интерфейсы\bin\Debug", "*.xlsx");
+            if (fileOfExcel != null && fileOfExcel.Length > index)
+                exApp.Workbooks.Open(@"C:\Users\teesh\source\repos\интерфейсы\интерфейсы\bin\Debug\ExcelPlaces.xlsx");            
+            else exApp.Workbooks.Add(Type.Missing);
+            exApp.Visible = true;
+            exApp.SheetsInNewWorkbook = 1;
+            exApp.ActiveCell.Value = 1;
+            var Alpha = new string[] { "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K" };
+            var Names = new string[] { "Название места", "Рейтинг", "Имя Представителя", "Описание", "Город", "Регион", "Название улицы", "Номер улицы", "Номера телефона", "Контакты", "Дата регистрации" };
+            for (int i = 0; i < Alpha.Length; i++)
+                exWorksheet.get_Range($"{Alpha[i]}1", $"{Alpha[i]}1").Value = Names[i];
+            for (int i = 0; i < DataOfAllPlaces.ListOfPlaces.Count; i++)
+            {
+                var numbers = "";
+                exWorksheet.get_Range($"{Alpha[0]}{i + 2}", $"{Alpha[0]}{i + 2}").Value = DataOfAllPlaces.ListOfPlaces[i].Name;
+                exWorksheet.get_Range($"{Alpha[1]}{i + 2}", $"{Alpha[1]}{i + 2}").Value = $"Likes: {DataOfAllPlaces.ListOfPlaces[i].Rating.Likes}; Dislikes: {DataOfAllPlaces.ListOfPlaces[i].Rating.Dislikes}";
+                exWorksheet.get_Range($"{Alpha[2]}{i + 2}", $"{Alpha[2]}{i + 2}").Value = DataOfAllPlaces.ListOfPlaces[i].Information.SpokesmanName;
+                exWorksheet.get_Range($"{Alpha[3]}{i + 2}", $"{Alpha[3]}{i + 2}").Value = DataOfAllPlaces.ListOfPlaces[i].Information.Discription;
+                exWorksheet.get_Range($"{Alpha[4]}{i + 2}", $"{Alpha[4]}{i + 2}").Value = DataOfAllPlaces.ListOfPlaces[i].Information.Address.City;
+                exWorksheet.get_Range($"{Alpha[5]}{i + 2}", $"{Alpha[5]}{i + 2}").Value = DataOfAllPlaces.ListOfPlaces[i].Information.Address.Region;
+                exWorksheet.get_Range($"{Alpha[6]}{i + 2}", $"{Alpha[6]}{i + 2}").Value = DataOfAllPlaces.ListOfPlaces[i].Information.Address.Street.Name;
+                exWorksheet.get_Range($"{Alpha[7]}{i + 2}", $"{Alpha[7]}{i + 2}").Value = DataOfAllPlaces.ListOfPlaces[i].Information.Address.Street.Number;
+                if(DataOfAllPlaces.ListOfPlaces[i].Contacts.PhoneNumber.Count != 0)
+                    for (int j = 0; j < DataOfAllPlaces.ListOfPlaces[i].Contacts.PhoneNumber.Count; j++)
+                    {                        
+                        numbers += DataOfAllPlaces.ListOfPlaces[i].Contacts.PhoneNumber[j];
+                        numbers += ";";
+                    }
+                exWorksheet.get_Range($"{Alpha[8]}{i + 2}", $"{Alpha[8]}{i + 2}").Value = numbers;
+                numbers = "";
+                if (DataOfAllPlaces.ListOfPlaces[i].Contacts.SocialContacts.Count != 0)
+                    for (int j = 0; j < DataOfAllPlaces.ListOfPlaces[i].Contacts.SocialContacts.Count; j++)
+                    { 
+                        numbers += DataOfAllPlaces.ListOfPlaces[i].Contacts.SocialContacts[j];
+                        numbers += ";";
+                    }
+                exWorksheet.get_Range($"{Alpha[9]}{i + 2}", $"{Alpha[9]}{i + 2}").Value = numbers;
+                exWorksheet.get_Range($"{Alpha[10]}{i + 2}", $"{Alpha[10]}{i + 2}").Value = DataOfAllPlaces.ListOfPlaces[i].RegistrationDate;
+            }
+            exApp.ActiveWorkbook.SaveAs(@"C:\Users\teesh\source\repos\интерфейсы\интерфейсы\bin\Debug\ExcelPlaces.xlsx");            
+        }
+
+        private void WordDataPlaces_Click(object sender, EventArgs e)
+        {
+            WApp.Documents.Add(Type.Missing);
+            Wdocum = WApp.Documents.get_Item(1);
+            WApp.Visible = true;
+            for(int i = 0; i < DataOfAllPlaces.ListOfPlaces.Count; i++)
+            {
+                WApp.Selection.Text += $"{i + 1}.{DataOfAllPlaces.ListOfPlaces[i].Name}\n\n" + $"{DataOfAllPlaces.ListOfPlaces[i].Information.Discription}" + $"\n\n";
+            }
+            WApp.ActiveDocument.SaveAs(@"C:\Users\teesh\source\repos\интерфейсы\интерфейсы\bin\Debug\WordPlaces.docx");
         }
 
         private void ListOfUsers_Click(object sender, EventArgs e)
