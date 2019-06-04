@@ -8,10 +8,10 @@ using System.Xml.Serialization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Sirea.Models.DataAccessPostgreSqlProvider;
+using DoubleGisGidClasses.Web.Models.DataAccessPostgreSqlProvider;
 using DoubleGisGidClasses;
 
-namespace Sirea.Controllers
+namespace DoubleGisGidClasses.Web.Controllers
 {
     public class UploadController : Controller
     {
@@ -31,42 +31,25 @@ namespace Sirea.Controllers
                 var places = (Places)xs.Deserialize(stream);
                 using (var db = new DoubleGisGidDbContext())
                 {
+                    
                     foreach (var place in places.ListOfPlaces)
                     {
-                        var dbp = new DbPlace()
+                        var dbp = new DbPlace(place);
+                        dbp.PhoneNumber = new List<string>();
+                        foreach(var phn in place.PhoneNumber)
                         {
-                            Name = place.Name,
-                            MainPhoto = place.MainPhoto,
-                        };
-                        dbp.Information = new DbInformation()
+                            if (place.PhoneNumber.Count == 0)
+                                dbp.PhoneNumber.Add("Нет номера");
+                            else dbp.PhoneNumber.Add(phn);
+                        }
+                        dbp.SocialContacts = new List<string>();
+                        foreach (var sc in place.SocialContacts)
                         {
-                            Discription = place.Information.Discription,
-                            Address = new DbAddress()
-                            {
-                                City = place.Information.Address.City,
-                                Region = place.Information.Address.Region,
-                                Street = new DbStreet()
-                                {
-                                    Name = place.Information.Address.Street.Name,
-                                    Number = place.Information.Address.Street.Number,
-                                }
-
-                            },
-                            SpokesmanName = place.Information.SpokesmanName,
-
-                        };
-                        dbp.Rating = new DbRating()
-                        {
-                            Likes = place.Rating.Likes,
-                            Dislikes = place.Rating.Dislikes,
-                        };
-                        dbp.RegistrationDate = new DateTime();
-                        dbp.RegistrationDate = place.RegistrationDate;
-                        dbp.Contacts = new DbContacts()
-                        {
-                            PhoneNumber = place.Contacts.PhoneNumber,
-                            SocialContacts = place.Contacts.SocialContacts,
-                        };
+                            if (place.SocialContacts.Count == 0)
+                                dbp.SocialContacts.Add("Нет контактов");
+                            else dbp.SocialContacts.Add(sc);
+                        }                        
+                        dbp.DbInformation = new DbInformation(place.Information);
                         db.Places.Add(dbp);
                     }
                     db.SaveChanges();
@@ -74,7 +57,7 @@ namespace Sirea.Controllers
                 return View(places);
             }
         }
-      
+
         public ActionResult Image(int id)
         {
             using (var db = new DoubleGisGidDbContext())
@@ -83,13 +66,27 @@ namespace Sirea.Controllers
             }
         }
 
-        //public ActionResult List()
-        //{
-        //    List<DbPlace> list;
-        //    using (var db = new DoubleGisGidDbContext())
-        //    {
-        //        list = db.Places.Include(p =>p.)
-        //    }
-        //}
+        public ActionResult ListPhone()
+        {
+            List<DbPlace> list;
+            using (var db = new DoubleGisGidDbContext())
+            {
+                list = db.Places.Include(s => s.PhoneNumber).ToList();
+                
+            }
+            return View(list);
+        }
+
+        public ActionResult ListSoc()
+        {
+            List<DbPlace> list;
+            using (var db = new DoubleGisGidDbContext())
+            {
+                list = db.Places.Include(s => s.SocialContacts).ToList();
+            }
+            return View(list);
+        }
+
     }
 }
+

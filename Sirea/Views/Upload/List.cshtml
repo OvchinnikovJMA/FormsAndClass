@@ -1,4 +1,4 @@
-﻿@model System.Collections.Generic.List<Sirea.Models.DataAccessPostgreSqlProvider.DbPlace>
+﻿@model System.Collections.Generic.List<DoubleGisGidClasses.Web.Models.DataAccessPostgreSqlProvider.DbPlace>
 @{
     ViewBag.Title = "Места города Екатеринбурга";
     Layout = "_Layout";
@@ -7,12 +7,11 @@
 @foreach (var place in Model)
 {
     <div>
-        <p align="center">@place.Id - @place.Name</p>
+        <p align="center">@place.Name</p>
         <img src="Image?id=@place.Id" />
         <table class="table table-bordered table-responsive table-hover">
             <thead>
                 <tr>
-                    <td>Название</td>
                     <td>Количество лайков</td>
                     <td>Количество Дизлайков</td>
                     <td>Имя представителя</td>
@@ -24,15 +23,32 @@
                 </tr>
             </thead>
             <tr>
-                <td>@place.Name</td>
-                <td>@place.Rating.Likes</td>
-                <td>@place.Rating.Dislikes</td>
-                <td>@place.Information.SpokesmanName</td>
-                <td>@place.Information.Discription</td>
-                <td>@place.Information.Address.Region; @place.Information.Address.City</td>
-                <td>@place.Information.Address.Street.Name; @place.Information.Address.Street.Number</td>
-                <td>@place.Contacts.DoNumbers()</td>
-                <td>@place.Contacts.DoContacts()</td>
+                <td>@place.Likes</td>
+                <td>@place.Dislikes</td>
+                <td>@place.DbInformation.SpokesmanName</td>
+                <td>@place.DbInformation.Discription</td>
+                <td>@place.DbInformation.Region + @place.DbInformation.City</td>
+                <td>@place.DbInformation.NameOfStreet + @place.DbInformation.NumberOfStreet</td>
+                @if (place.PhoneNumber != null)
+                {
+                    var strn = "";
+                    @foreach (var e in place.PhoneNumber)
+                    {
+                        strn += e;
+                        strn += ";";
+                    }
+                    <td>@strn</td>
+                }
+                @if (place.SocialContacts != null)
+                {
+                    var strc = "";
+                    @foreach (var e in place.PhoneNumber)
+                    {
+                        strc += e;
+                        strc += ";";
+                    }
+                    <td>@strc</td>
+                }
             </tr>
         </table>
     </div>

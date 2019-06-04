@@ -15,24 +15,28 @@
             <td>Дизлайки</td>
             <td>Имя представителя</td>
             <td>Описание</td>
-            <td>Город</td>
-            <td>Улица</td>
+            <td>Адрес</td>
             <td>Телефон</td>
             <td>Ссылки</td>
         </tr>
     </thead>
     @foreach (var place in Model.ListOfPlaces)
     {
-        <tr>
-            <td>@place.Name</td>
-            <td>@place.Rating.Likes</td>
-            <td>@place.Rating.Dislikes</td>
-            <td>@place.Information.SpokesmanName</td>
-            <td>@place.Information.Discription</td>
-            <td>@place.Information.Address.Region; @place.Information.Address.City</td>
-            <td>@place.Information.Address.Street.Name; @place.Information.Address.Street.Number</td>
-            <td>@place.Contacts.DoNumbers()</td>
-            <td>@place.Contacts.DoContacts()</td>
-        </tr>
+    <tr>
+        <td>@place.Name</td>
+        <td>@place.Likes</td>
+        <td>@place.Dislikes</td>
+        <td>@place.Information.SpokesmanName</td>
+        <td>@place.Information.Discription</td>
+        <td>@place.Information.Region; @place.Information.City; @place.Information.NameOfStreet; @place.Information.NumberOfStreet.ToString()</td>
+        @foreach (var n in place.PhoneNumber)
+        {
+            <td>@n;</td>
+        }
+        @foreach (var c in place.SocialContacts)
+        {
+            <td>@c;</td>
+        }        
+    </tr>
     }
 </table>
