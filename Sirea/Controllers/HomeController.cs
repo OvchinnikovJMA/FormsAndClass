@@ -3,15 +3,17 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using DoubleGisGidClasses;
 using Microsoft.AspNetCore.Mvc;
 using Sirea.Models;
 
-namespace Sirea.Controllers
+namespace DoubleGisGidClasses.Web.Controllers
 {
     public class HomeController : Controller
     {
         public IActionResult Index()
         {
+            new Place();
             return View();
         }
 

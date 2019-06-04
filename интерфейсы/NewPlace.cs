@@ -50,17 +50,17 @@ namespace интерфейсы
         {
             flag = true;
             NameOfPlaceSPM.Text = Place.Name;
-            EnterCityNewPlaceSpokesman.Text = Place.Information.Address.City;
-            EnterRegionNewPlaceSpokesman.Text = Place.Information.Address.Region;
-            EnterNameStreet.Text = Place.Information.Address.Street.Name;
-            EnterNumberStreetSPM.Text = Place.Information.Address.Street.Number.ToString();
+            EnterCityNewPlaceSpokesman.Text = Place.Information.City;
+            EnterRegionNewPlaceSpokesman.Text = Place.Information.Region;
+            EnterNameStreet.Text = Place.Information.NameOfStreet;
+            EnterNumberStreetSPM.Text = Place.Information.NumberOfStreet.ToString();
             EnterDiscription.Text = Place.Information.Discription;
             EnterNameOfSpokesman.Text = Place.Information.SpokesmanName;
             DateRegisterPicker.Value = Place.RegistrationDate;
-            for (int i = 0; i < Place.Contacts.PhoneNumber.Count; i++)
-                NumberComboBox.Items.Add(Place.Contacts.PhoneNumber[i]);
-            for (int i = 0; i < Place.Contacts.SocialContacts.Count; i++)
-                ContactsComboBox.Items.Add(Place.Contacts.SocialContacts[i]);
+            for (int i = 0; i < Place.PhoneNumber.Count; i++)
+                NumberComboBox.Items.Add(Place.PhoneNumber[i]);
+            for (int i = 0; i < Place.SocialContacts.Count; i++)
+                ContactsComboBox.Items.Add(Place.SocialContacts[i]);
         }
 
         public void GetNewPlaceReg()
@@ -73,18 +73,15 @@ namespace интерфейсы
             if(Place.Name == null)
             {
                 Place.Information = new Information();
-                Place.Information.Address = new Address();
-                Place.Information.Address.Street = new Street();
-                Place.Rating = new Rating();
                 var rand = new Random();
-                Place.Rating.Likes = rand.Next(1, 20);
-                Place.Rating.Dislikes = rand.Next(1, 5);
+                Place.Likes = rand.Next(1, 20).ToString();
+                Place.Dislikes = rand.Next(1, 5).ToString();
             }
             Place.Name = NameOfPlaceSPM.Text;
-            Place.Information.Address.City = EnterCityNewPlaceSpokesman.Text;
-            Place.Information.Address.Region = EnterRegionNewPlaceSpokesman.Text;
-            Place.Information.Address.Street.Name = EnterNameStreet.Text;
-            Place.Information.Address.Street.Number = int.Parse(EnterNumberStreetSPM.Text);
+            Place.Information.City = EnterCityNewPlaceSpokesman.Text;
+            Place.Information.Region = EnterRegionNewPlaceSpokesman.Text;
+            Place.Information.NameOfStreet = EnterNameStreet.Text;
+            Place.Information.NumberOfStreet = int.Parse(EnterNumberStreetSPM.Text);
             Place.Information.Discription = EnterDiscription.Text;
             Place.Information.SpokesmanName = EnterNameOfSpokesman.Text;
             Place.RegistrationDate = DateRegisterPicker.Value;
@@ -94,25 +91,21 @@ namespace интерфейсы
         }
         private void downloadnumber_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            Contacts contacts = new Contacts();
-            contacts.PhoneNumber = new List<string>();
-            Place.Contacts = contacts;
-            contacts.PhoneNumber.Add(NumberComboBox.Text);
+            Place.PhoneNumber = new List<string>();
+            Place.PhoneNumber.Add(NumberComboBox.Text);
             NumberComboBox.Items.Add(NumberComboBox.Text);
-            if (contacts.PhoneNumber.Count == 0)
-                contacts.PhoneNumber.Add("Нет номера");
+            if (Place.PhoneNumber.Count == 0)
+                Place.PhoneNumber.Add("Нет номера");
             NumberComboBox.Text = "";
         }
 
         private void downloadcontact_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            Contacts contacts = new Contacts();
-            contacts.SocialContacts = new List<string>();
-            Place.Contacts = contacts;
+            Place.SocialContacts = new List<string>();
             ContactsComboBox.Items.Add(ContactsComboBox.Text);
-            contacts.SocialContacts.Add(ContactsComboBox.Text);
-            if (contacts.SocialContacts.Count == 0)
-                contacts.SocialContacts.Add("Нет контактов");
+            Place.SocialContacts.Add(ContactsComboBox.Text);
+            if (Place.SocialContacts.Count == 0)
+                Place.SocialContacts.Add("Нет контактов");
             ContactsComboBox.Text = "";
         }
 

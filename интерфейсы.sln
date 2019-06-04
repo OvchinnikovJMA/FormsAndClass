@@ -19,7 +19,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		интерфейсы\bin\Debug\интерфейсы.pdb = интерфейсы\bin\Debug\интерфейсы.pdb
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sirea", "Sirea\Sirea.csproj", "{4074518B-45C3-4E52-9985-8DD914A11913}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DoubleGisGidClasses.Web", "Sirea\DoubleGisGidClasses.Web.csproj", "{4074518B-45C3-4E52-9985-8DD914A11913}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

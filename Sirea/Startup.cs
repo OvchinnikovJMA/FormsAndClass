@@ -10,9 +10,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Sirea.Models.DataAccessPostgreSqlProvider;
+using DoubleGisGidClasses.Web.Models.DataAccessPostgreSqlProvider;
 
-namespace Sirea
+namespace DoubleGisGidClasses.Web
 {
     public class Startup
     {

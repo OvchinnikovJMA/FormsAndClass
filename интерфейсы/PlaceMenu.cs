@@ -28,18 +28,16 @@ namespace интерфейсы
         public User userForplace { get; set; }
         public Place Place {get; set;}
         public Information Information = new Information();
-        public Address Address = new Address();
         public readonly Label addressText = new Label();
         public readonly Label contactsText = new Label();
         private void Form4_Load(object sender, EventArgs e)
         {
-            var Rating = new Rating();
             var ms = new MemoryStream(Place.MainPhoto);
             PhotoPlace.Image = Image.FromStream(ms);
             PhotoPlace.SizeMode = PictureBoxSizeMode.StretchImage;
             NameOfPlace.Text = Place.Name;
-            InfoLikeNumber.Text = Place.Rating.Likes.ToString();
-            InfoDisLikeNumber.Text = Place.Rating.Dislikes.ToString();
+            InfoLikeNumber.Text = Place.Likes.ToString();
+            InfoDisLikeNumber.Text = Place.Dislikes.ToString();
             InformationPlaceInfo.Text = Place.Information.Discription;
             LikePicture1Info.Image = Image.FromFile(@"C:\Users\teesh\Desktop\Копия флешки\STORE N GO\Иконки\img_165452.png");
             LikePicture1Info.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -50,28 +48,26 @@ namespace интерфейсы
         }
         public void GetAddress()
         {
-            Address.Street = new Street();
             splitContainer1.Panel2.Controls.Add(addressText);
             addressText.Location = new Point(15, InformationPlaceInfo.Location.Y + InformationPlaceInfo.Height + 10);
             addressText.Width = 448;
-            addressText.Text = $"г.{Place.Information.Address.City}, Улица: {Place.Information.Address.Street.Name}, Номер: {Place.Information.Address.Street.Number}";
+            addressText.Text = $"г.{Place.Information.City}, Улица: {Place.Information.NameOfStreet}, Номер: {Place.Information.NumberOfStreet}";
         }
         public void GetContacts()
         {
-            var Contacts = new Contacts();
             splitContainer1.Panel2.Controls.Add(contactsText);
             contactsText.Location = new Point(15, addressText.Height + addressText.Location.Y + 10);
             contactsText.Width = 448;
             contactsText.AutoSize = true;
             contactsText.Text = $" Номер телефона: ";
-            for (int i = 0; i < Place.Contacts.PhoneNumber.Count; i++)
+            for (int i = 0; i < Place.PhoneNumber.Count; i++)
             {
-                contactsText.Text += $"{Place.Contacts.PhoneNumber[i]} ";
+                contactsText.Text += $"{Place.PhoneNumber[i]} ";
             }
             contactsText.Text += $"\n Контакты: ";
-            for (int i = 0; i < Place.Contacts.SocialContacts.Count; i++)
+            for (int i = 0; i < Place.SocialContacts.Count; i++)
             {
-                contactsText.Text += $"{Place.Contacts.SocialContacts[i]} ";
+                contactsText.Text += $"{Place.SocialContacts[i]} ";
             }           
         }
         private void splitContainer1_Panel2_Paint(object sender, PaintEventArgs e)

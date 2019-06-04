@@ -30,7 +30,6 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(StartWindow));
             this.AdminTab = new System.Windows.Forms.TabPage();
-            this.CreateExcelData = new System.Windows.Forms.Button();
             this.AddPlaceAdmin = new System.Windows.Forms.Button();
             this.LogoutAdmin = new System.Windows.Forms.PictureBox();
             this.RatingAdmin = new System.Windows.Forms.Button();
@@ -106,7 +105,6 @@
             this.SettingsPlace = new System.Windows.Forms.TabPage();
             this.DeletePlace = new System.Windows.Forms.Button();
             this.ListOfPlacesForSetting = new System.Windows.Forms.ListBox();
-            this.WordDataPlaces = new System.Windows.Forms.Button();
             this.AdminTab.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.LogoutAdmin)).BeginInit();
             this.SpokesmanTab.SuspendLayout();
@@ -125,8 +123,6 @@
             // 
             // AdminTab
             // 
-            this.AdminTab.Controls.Add(this.WordDataPlaces);
-            this.AdminTab.Controls.Add(this.CreateExcelData);
             this.AdminTab.Controls.Add(this.AddPlaceAdmin);
             this.AdminTab.Controls.Add(this.LogoutAdmin);
             this.AdminTab.Controls.Add(this.RatingAdmin);
@@ -139,17 +135,6 @@
             this.AdminTab.TabIndex = 6;
             this.AdminTab.Text = "AdminTab";
             this.AdminTab.UseVisualStyleBackColor = true;
-            // 
-            // CreateExcelData
-            // 
-            this.CreateExcelData.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.CreateExcelData.Location = new System.Drawing.Point(417, 78);
-            this.CreateExcelData.Name = "CreateExcelData";
-            this.CreateExcelData.Size = new System.Drawing.Size(337, 40);
-            this.CreateExcelData.TabIndex = 43;
-            this.CreateExcelData.Text = "EXCEL";
-            this.CreateExcelData.UseVisualStyleBackColor = true;
-            this.CreateExcelData.Click += new System.EventHandler(this.CreateExcelData_Click);
             // 
             // AddPlaceAdmin
             // 
@@ -995,17 +980,6 @@
             this.ListOfPlacesForSetting.TabIndex = 1;
             this.ListOfPlacesForSetting.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.ListOfPlacesForSetting_MouseDoubleClick);
             // 
-            // WordDataPlaces
-            // 
-            this.WordDataPlaces.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.WordDataPlaces.Location = new System.Drawing.Point(417, 144);
-            this.WordDataPlaces.Name = "WordDataPlaces";
-            this.WordDataPlaces.Size = new System.Drawing.Size(337, 40);
-            this.WordDataPlaces.TabIndex = 44;
-            this.WordDataPlaces.Text = "WORD";
-            this.WordDataPlaces.UseVisualStyleBackColor = true;
-            this.WordDataPlaces.Click += new System.EventHandler(this.WordDataPlaces_Click);
-            // 
             // StartWindow
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -1121,8 +1095,6 @@
         private System.Windows.Forms.ListBox ListOfPlacesForSetting;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button DeletePlace;
-        private System.Windows.Forms.Button CreateExcelData;
-        private System.Windows.Forms.Button WordDataPlaces;
     }
 }
 
